@@ -1,0 +1,198 @@
+{% extends 'layout.html' %}
+{% block content %}
+<!DOCTYPE html>
+
+<head>
+<style>
+    #classifiactionResult > label{
+        margin-right: 7%;
+    }
+    .flex-tags{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center
+}
+    .flex-tags > div{
+        padding: 2px;
+        margin: 2px;
+    }
+
+
+</style>
+</head>
+<html>
+
+
+<div class="container">
+   <br>
+  <h2>Company Document</h2>
+
+  <form action="/companies/savecompany" id="myform" class="needs-validation" novalidate method="post">
+     <input type="hidden" name="old_title" value="{{companydocument.title}}">
+     <input type="hidden" id="industry_tags" name="industry_tags" value="{{companydocument.industry_tags}}">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control"  placeholder="Enter Title" name="title" required value="{{companydocument.title}}">
+    </div>
+    <div class="form-group">
+      <label >Clean Text</label>
+        <textarea type="text" rows="15" class="form-control"  name="clean_text">{{companydocument.clean_text}}</textarea>
+    </div>
+
+
+    <div  class="form-group" style="display: flex; flex-direction: row" >
+      <div>
+
+     <select  class="form-control" id="myInput" onchange=newElement()>
+          <option selected>Select Tag</option>
+          {%if industrytags%}
+          {%for tag in industrytags:%}
+            <option>{{tag.title}}</option>
+          {%endfor%}
+          {%endif%}
+      </select>
+
+         </div>
+      <div style="margin-left: 80px">
+      <div class="flex-tags">
+   <!-- onchange function in input adds list here using JS-->
+   <ul id="myUL">
+    </ul>
+  </div>
+
+    </div>
+    </div>
+      {%if score%}
+      <div class="form-group" style="display: flex; flex-direction: row" id="classifiactionResult">
+          <label style="color: grey;">Overall {{"{:.1f}".format(score.get('overall'))}}%</label>
+          <label style="color: lightgreen;">Purpose {{"{:.1f}".format(score.get('purpose'))}}%</label>
+          <label style="color: orange;">Craftsmanship {{"{:.1f}".format(score.get('craftsmanship'))}}%</label>
+          <label style="color: lightblue;">Aesthetics {{"{:.1f}".format(score.get('aesthetic'))}}%</label>
+          <label style="color: grey;">Narrative {{"{:.1f}".format(score.get('narrative'))}}%</label>
+      </div>
+      {%endif%}
+
+     <div  class="form-group" style="display: flex; flex-direction: row" >
+       <div style="flex: 33%">
+
+      <select name="reference_to_search_query" id="cars" class="form-control">
+          <option value="empty" selected>Select Default Query</option>
+          {%if searchqueries%}
+            {%for i in searchqueries:%}
+              {%if(companydocument.reference_to_search_query==i.title)%}
+                <option value="{{i.title}}" selected>{{i.title}}</option>
+              {%else%}
+                <option value="{{i.title}}">{{i.title}}</option>
+              {%endif%}
+            {%endfor%}
+          {%endif%}
+
+      </select>
+         </div>
+
+      <div style="flex: 33%; margin-left: 80px; margin-top: 5px">
+          <div class="checkbox">
+      {%if(companydocument.run_query_score)%}
+      <label><input checked name="run_query_score" value="yes" style="margin-right: 10px"; type="checkbox">Run Automatically</label>
+      {%else%}
+      <label><input name="run_query_score" value="yes" style="margin-right: 10px"; type="checkbox">Run Automatically</label>
+      {%endif%}
+    </div>
+      </div>
+
+       <div style="flex: 33%; margin-top: 2px;">
+           <button onclick="viewReport()" type="button" style="color:blueviolet; background-color: inherit; border-color: inherit; border:none"><b>View Query Report</b></button>
+      </div>
+     </div>
+
+    <button class="mybutton" onclick="submitForm()" >Save</button><br><br>
+  </form>
+  <form action="/companies/classifier" method="POST">
+    <button class="mybutton" type="submit" onclick="myClassifiedSentences()" >See Classified Sentences</button><br><br>
+    <input type="hidden" name="title" value="{{companydocument.title}}">
+  </form>
+  <button class="mybutton" type="button" onclick="deleteCompany()" >Delete</button>
+</div>
+
+
+
+<script>
+    function submitForm(){
+      var s = tags.join(",");
+      console.log(s);
+      document.getElementById("industry_tags").value = s;
+      document.getElementById("myform").submit();
+    }
+    function viewReport(){
+          {%if(report)%}
+            window.location.href = "/reporttest?id="+{{report.id}};
+          {%endif%}
+    }
+    function myClassifiedSentences(){
+          window.location.href = "/companies/seeclassifiedsentences?title="+"{{companydocument.title}}";
+      }
+    function deleteCompany(){
+          window.location.href = "/companies/deletecompany?title="+"{{companydocument.title}}";
+      }
+
+    var tags = []
+    {%if companydocument.industry_tags%}
+    {%for tag in companydocument.industry_tags.split(',')%}
+      var inputValue = "{{tag}}";
+      work(inputValue);
+    {%endfor%}
+    {%endif%}
+
+    function newElement(inputValue) {
+      var inputValue = document.getElementById("myInput").value;
+      if(tags.includes(inputValue) || inputValue ==='Select Tag'){
+        return;
+      }
+      work(inputValue)
+    }
+
+
+    function work(inputValue){
+      tags.push(inputValue);
+      var li = document.createElement("li");
+      var t = document.createTextNode(inputValue);
+
+      if (inputValue === '') {
+        alert("You must write something!");
+      } else {
+        document.getElementById("myUL").appendChild(li);
+
+      }
+      document.getElementById("myInput").value = "";
+
+      var span = document.createElement("SPAN");
+      var txt = document.createTextNode("\u00D7");
+      var btn= document.createElement("button");
+      btn.className="mybutton";
+      btn.appendChild(t);
+      li.appendChild(btn);
+      span.className = "close";
+      span.appendChild(txt);
+      li.appendChild(span);
+
+      var close = document.getElementsByClassName("close");
+      var i;
+      for (i = 0; i < close.length; i++) {
+        close[i].onclick = function() {
+          const index = tags.indexOf(this.previousSibling.innerHTML);
+          if (index > -1) {
+            tags.splice(index, 1);
+          }
+          var div = this.parentElement;
+          div.style.display = "none";
+        }
+      }
+      document.getElementById("myInput").options.selectedIndex = 0;
+    }
+
+</script>
+
+
+</html>
+{% endblock %}

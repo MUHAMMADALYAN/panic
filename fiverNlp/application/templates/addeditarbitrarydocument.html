@@ -1,0 +1,210 @@
+{% extends 'layout.html' %}
+{% block content %}
+<!DOCTYPE html>
+
+<head>
+<style>
+    #classifiactionResult > label{
+        margin-right: 7%;
+    }
+    .flex-tags{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center
+}
+    .flex-tags > div{
+        padding: 2px;
+        margin: 2px;
+    }
+
+
+</style>
+</head>
+<html>
+
+
+<div class="container">
+   <br>
+  <h2>Arbitrary Document</h2>
+
+  <form action="/arbitrarydocuments/savearbitrarydocument" id="myform" class="needs-validation" novalidate method="post">
+     <input type="hidden" name="old_title" value="{{arbitrarydocument.title}}">
+     <input type="hidden" id="industry_tags" name="industry_tags" value="{{arbitrarydocument.industry_tags}}">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control"  placeholder="Enter Title" name="title" required value="{{arbitrarydocument.title}}">
+    </div>
+    <div class="form-group">
+      <label >Clean Text</label>
+        <textarea type="text" rows="15" class="form-control"  name="clean_text">{{arbitrarydocument.clean_text}}</textarea>
+    </div>
+
+
+    <div  class="form-group" style="display: flex; flex-direction: row" >
+      <div>
+
+     <select  class="form-control" id="myInput" onchange=newElement()>
+          <option selected>Select Tag</option>
+          {%if industrytags%}
+          {%for tag in industrytags:%}
+            <option>{{tag.title}}</option>
+          {%endfor%}
+          {%endif%}
+      </select>
+
+         </div>
+      <div style="margin-left: 80px">
+      <div class="flex-tags">
+   <!-- onchange function in input adds list here using JS-->
+   <ul id="myUL">
+    </ul>
+  </div>
+
+    </div>
+    </div>
+
+
+     <div  class="form-group">
+       <label for="date">Date</label>
+       <input type="text" class="form-control"  placeholder="Enter Date" name="date" value="{{arbitrarydocument.date}}">
+       <div class="valid-feedback">Valid.</div>
+       <div class="invalid-feedback">Please fill out this field.</div>
+     </div>
+
+     <div  class="form-group">
+       <label for="author">Author </label>
+       <input type="text" class="form-control"  placeholder="Enter Author Name" name="author" value="{{arbitrarydocument.author}}">
+       <div class="valid-feedback">Valid.</div>
+       <div class="invalid-feedback">Please fill out this field.</div>
+     </div>
+
+     <div  class="form-group">
+       <label for="provider">Provider </label>
+       <input type="text" class="form-control"  placeholder="Enter Provider" name="provider" value="{{arbitrarydocument.provider}}">
+       <div class="valid-feedback">Valid.</div>
+       <div class="invalid-feedback">Please fill out this field.</div>
+     </div>
+
+     <div  class="form-group">
+       <label for="url">Url </label>
+       <input type="text" class="form-control"  placeholder="Enter Url" name="url" value="{{arbitrarydocument.url}}">
+       <div class="valid-feedback">Valid.</div>
+       <div class="invalid-feedback">Please fill out this field.</div>
+     </div>
+
+     <div  class="form-group">
+       <label for="image_url">Image Url</label>
+       <input type="text" class="form-control"  placeholder="Enter Image Url" name="image_url" value="{{arbitrarydocument.image_url}}">
+       <div class="valid-feedback">Valid.</div>
+       <div class="invalid-feedback">Please fill out this field.</div>
+     </div>
+
+
+    <button class="mybutton" onclick="submitForm()" >Save</button><br><br>
+  </form>
+  <form action="/arbitrarydocuments/classifier" method="POST">
+    <button class="mybutton" type="submit" onclick="myClassifiedSentences()" >See Classified Sentences</button><br><br>
+    <input type="hidden" name="title" value="{{arbitrarydocument.title}}">
+  </form>
+  <button class="mybutton" type="button" onclick="deleteCompany()" >Delete</button>
+</div>
+
+
+
+<script>
+    function submitForm(){
+      var s = tags.join(",");
+      console.log(s);
+      document.getElementById("industry_tags").value = s;
+      document.getElementById("myform").submit();
+    }
+    function viewReport(){
+          {%if(report)%}
+            window.location.href = "/reporttest?id="+{{report.id}};
+          {%endif%}
+    }
+    function myClassifiedSentences(){
+          window.location.href = "/arbitrarydocuments/seeclassifiedsentences?title="+"{{arbitrarydocument.title}}";
+      }
+    function deleteCompany(){
+          window.location.href = "/arbitrarydocuments/delete?title="+"{{arbitrarydocument.title}}";
+      }
+
+    var tags = []
+    {%if arbitrarydocument.industry_tags%}
+    {%for tag in arbitrarydocument.industry_tags.split(',')%}
+      var inputValue = "{{tag}}";
+      work(inputValue);
+    {%endfor%}
+    {%endif%}
+
+    function newElement(inputValue) {
+      var inputValue = document.getElementById("myInput").value;
+      if(tags.includes(inputValue) || inputValue ==='Select Tag'){
+        return;
+      }
+      work(inputValue)
+    }
+
+
+    function work(inputValue){
+      tags.push(inputValue);
+      var li = document.createElement("li");
+      var t = document.createTextNode(inputValue);
+
+      if (inputValue === '') {
+        alert("You must write something!");
+      } else {
+        document.getElementById("myUL").appendChild(li);
+
+      }
+      document.getElementById("myInput").value = "";
+
+      var span = document.createElement("SPAN");
+      var txt = document.createTextNode("\u00D7");
+      var btn= document.createElement("button");
+      btn.className="mybutton";
+      btn.appendChild(t);
+      li.appendChild(btn);
+      span.className = "close";
+      span.appendChild(txt);
+      li.appendChild(span);
+
+      var close = document.getElementsByClassName("close");
+      var i;
+      for (i = 0; i < close.length; i++) {
+        close[i].onclick = function() {
+          const index = tags.indexOf(this.previousSibling.innerHTML);
+          if (index > -1) {
+            tags.splice(index, 1);
+          }
+          var div = this.parentElement;
+          div.style.display = "none";
+        }
+      }
+      document.getElementById("myInput").options.selectedIndex = 0;
+    }
+    // (function() {
+    //   'use strict';
+    //   window.addEventListener('load', function() {
+    //     // Get the forms we want to add validation styles to
+    //     var forms = document.getElementsByClassName('needs-validation');
+    //     // Loop over them and prevent submission
+    //     var validation = Array.prototype.filter.call(forms, function(form) {
+    //       form.addEventListener('submit', function(event) {
+    //         if (form.checkValidity() === false) {
+    //           event.preventDefault();
+    //           event.stopPropagation();
+    //         }
+    //         form.classList.add('was-validated');
+    //       }, false);
+    //     });
+    //   }, false);
+    // })();
+
+</script>
+
+
+</html>
+{% endblock %}

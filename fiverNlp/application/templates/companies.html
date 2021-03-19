@@ -1,0 +1,132 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<head>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type=text/javascript>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  </script>
+<style>
+    .flex-tags{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center
+}
+    .flex-tags > div{
+        padding: 2px;
+        margin: 2px;
+    }
+
+ul{
+    display: flex;
+    flex-direction: inherit;
+    align-items: center
+}
+
+
+#myUL li {
+    margin-top: 12px;
+    margin-left: 4px;
+    list-style-type: none;
+
+
+}
+
+
+/* Style the list items */
+
+/* Darker background-color on hover */
+
+/* Style the close button */
+.close {
+  position: inherit;
+}
+.close:hover {
+  background-color: #000000;
+  color: white;
+}
+
+/* Style the input */
+#myInput {
+  width: 10%;
+  border-color:#000000
+}
+</style>
+
+</head>
+<body>
+   <div>
+       <input  style="width: 15%;margin-left:40%; margin-top: 10px;" class="form-control mr-sm-2" type="text" id="myInput" placeholder="Enter tag name" onchange="newElement(this.value)">
+   </div>
+<div class="container">
+<div class="flex-tags">
+  <button class="mybutton" onclick="selectTag(this.id)" id="all">all</button>
+  {% for i in industry_tags %}
+      <div>
+      <button class="mybutton" onclick="selectTag(this.id)" id="{{ i.title }}"> {{ i.title }}</button><span onclick="deleteTag(this.id)" id="{{ i.title }}" class="close">×</span>
+      </div>
+  {% endfor %}
+   <ul id="myUL" >
+    </ul>
+  </div>
+</div>
+</div>
+
+<br>
+<div class="data-display">
+    <! -- using classes of bootstrap-->
+    <div class="container">
+          <h3>Companies</h3>
+          <table class="table ">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Industry Tags</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%for i in companies%}
+              <tr>
+                <td ><a onclick="editCompany(this.id)" id="{{i.title}}" href="#">{{i.title}}</a></td>
+                <td>{{i.industry_tags}}</td>
+                <td>{{"{:%d, %b %Y : %I:%M %p} EST".format(i.date_created) }}</td>
+              </tr>
+              {%endfor%}
+            </tbody>
+          </table>
+        </div>
+         <div class="box"><button class="mybutton" onclick="myAddNew()">Add new Company</button></div>
+</div>
+</body>
+
+<script>
+  function myAddNew() {
+    window.location.href = "/companies/addnewcompanies";
+  }
+  function editCompany(title) {
+    window.location.href = "/companies/editcompany?title="+title;
+url_for('industry_tags_route')
+  }
+function newElement(title){
+  $.post( "/industrytags/add", { title: title})
+  .done(function( data ) {
+    window.location.href = "/companies";
+  });
+}
+function deleteTag(title){
+  $.post( "/industrytags/delete", { title: title})
+  .done(function( data ) {
+    window.location.href = "/companies";
+  });
+}
+function selectTag(tag){
+    window.location.href = "/companies?tag="+tag;
+}
+function editCompany(title) {
+  window.location.href = "/companies/editcompany?title="+title;
+}
+</script>
+
+{% endblock %}

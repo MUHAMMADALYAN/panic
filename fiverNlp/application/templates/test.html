@@ -1,0 +1,59 @@
+{% extends 'layout2.html' %}
+
+{% block content %}
+
+{% if data %}
+<style type="text/css">
+#purpose{
+    background-color: {{ class_colors['purpose'] }}; 
+    color: black;
+}
+#craftsmanship{
+    background-color:  {{ class_colors['craftsmanship'] }};
+    color: black;
+}
+#aesthetic{
+    background-color: {{ class_colors['aesthetic'] }};
+    color: black;
+}
+#narrative{
+    background-color: {{ class_colors['narrative'] }};
+    color: black;
+}
+</style>
+{% endif %}
+
+<div class="row">
+	<!-- Column for the form -->
+	<div class="col-md-6 pl-4 py-3">
+		<form method="POST" enctype="multipart/form-data" action="{{ url_for('test') }}">
+			<fieldset class="form-group">
+	           
+	    	{{ predictionForm.csrf_token }}
+
+	         <legend>Enter Text to Classify</legend>
+	        	        
+			<div class="form-group">
+			      
+				{% if predictionForm.text_area.errors %}
+				{{ predictionForm.text_area(class='form-control form-control-lg is-invalid') }}
+				<div class="invalid-feedback">
+			        {% for error in predictionForm.text_area.errors %}
+			            <span>{{ error }}</span>
+			        {% endfor %}
+				</div>
+			    {% else %}
+			        {{ predictionForm.text_area(class='form-control form-control-lg') }}
+			    {% endif %}
+			 
+			    {{ predictionForm.submit(class='btn btn-outline-dark my-3') }}
+			</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+	
+
+
+
+{% endblock %}

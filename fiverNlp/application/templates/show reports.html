@@ -1,0 +1,89 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<style>
+.query_buttons{
+    display: flex;
+    flex-direction: row;
+}
+.query_buttons > div{
+    margin: 10px;
+}
+
+
+.search{
+    flex-direction: row;
+    margin-left: 40%;
+}
+
+[data-href] { cursor: pointer; }
+
+
+</style>
+
+<body>
+<div class="search">
+<nav class="navbar navbar-expand-sm ">
+  <form class="form-inline" action="/action_page.php">
+    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+    <button class="mybutton" type="submit">Search</button>
+  </form>
+</nav>
+    <div>
+
+    </div>
+</div>
+
+
+  <div class="query_buttons">
+  {% for title in title_list %}
+      <div>
+     <button class="mybutton" onclick="editSearchQuery(this.id)" id="{{ title }}"> {{ title }} </button></div>
+  {% endfor %}
+  </div>
+
+<! -- using classes of bootstrap-->
+    <div class="container">
+          <table class="table table-hover">
+            <thead>
+              <tr >
+                <th>Documents</th>
+                <th>Comarison With</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr onclick="window.location='/companies/addnewcompanies';">
+                <td>John</td>
+                <td>Doe</td>
+                <td>john@example.com</td>
+              </tr>
+              <tr>
+                <td>Mary</td>
+                <td>Moe</td>
+                <td>mary@example.com</td>
+              </tr>
+              <tr>
+                <td>July</td>
+                <td>Dooley</td>
+                <td>july@example.com</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+    <div class="box">
+        <button class="mybutton" onclick="myAddNew()">Add Report</button>
+    </div>
+
+
+<script>
+  function myAddNew() {
+    window.location.href = "/makeReport";
+  }
+
+</script>
+
+</body>
+
+{% endblock %}

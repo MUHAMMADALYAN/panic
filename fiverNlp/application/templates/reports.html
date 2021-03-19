@@ -1,0 +1,121 @@
+{% extends 'layout.html' %}
+{% block content %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+
+<style>
+.query_buttons{
+    display: flex;
+    flex-direction: row;
+}
+.query_buttons > div{
+    margin: 10px;
+}
+
+.search{
+    flex-direction: row;
+    margin-left: 40%;
+}
+
+.batn,.batn1 {
+    border-color: white;
+    background-color: white;
+    font-size:20px;
+}
+
+[data-href] { cursor: pointer; }
+
+
+
+</style>
+<body>
+<div class="search">
+<nav class="navbar navbar-expand-sm ">
+  <form class="form-inline" action="/action_page.php">
+    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+    <button class="mybutton" type="submit">Search</button>
+  </form>
+</nav>
+    <div>
+
+    </div>
+</div>
+
+
+  <div class="query_buttons">
+  {% for title in title_list %}
+      <div>
+     <button class="mybutton" onclick="editSearchQuery(this.id)" id="{{ title }}"> {{ title }} </button></div>
+  {% endfor %}
+  </div>
+
+    <div class="container">
+          <h3>Reports</h3>
+          <table class="table table-hover">
+            <thead>
+              <tr >
+                <th>Title</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Delete</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for report in reports %}
+              <tr>
+                <td ><a onclick="reportClick(this)" id="{{ report.id }}" type="{{ report.type }}" href="#">{{report.title}}</a></td>
+                <td>{{report.type}}</td>
+                <td>{{report.status}}</td>
+                <td>{{"{:%d, %b %Y : %I:%M %p} EST".format(report.date_created) }}</td>
+                {%if 'default: ' not in report.title %}
+                  {%if report.status=='done' %}
+                    <td><button onclick="deleteClick(this.id)" id="{{ report.id }}"> delete </button></td>
+                  {%else%}
+                    <td><p>Wait untill done</p><td>
+                  {%endif%}
+              {%else%}
+                <td><p>Cannot delete here</p><td>
+              {%endif%}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="box">
+        <button class="mybutton" onclick="newClick()">Add Report</button>
+    </div>
+
+
+
+<script>
+function deleteClick(id) {
+  window.location.href = "/deletereport?id="+id;
+}
+
+function reportClick(e) {
+  var type = e.getAttribute("type");
+  if(type=="vscompany"){
+  window.location.href = "/reporttest?id="+e.id;
+  }
+  else if (type=="vssearchquery") {
+    window.location.href = "/reporttest?id="+e.id;
+  }
+  else if(type=="vstag"){
+    window.location.href = "/reporttest?id="+e.id;
+  }
+  else{
+    alert('error');
+  }
+}
+function newClick() {
+  window.location.href = "/newreport";
+}
+</script>
+
+</body>
+
+{% endblock %}

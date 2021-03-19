@@ -1,0 +1,115 @@
+{% extends 'layout.html' %}
+{% block content %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+
+<style>
+.query_buttons{
+    display: flex;
+    flex-direction: row;
+}
+.query_buttons > div{
+    margin: 10px;
+}
+
+.search{
+    flex-direction: row;
+    margin-left: 40%;
+}
+
+.batn,.batn1 {
+    border-color: white;
+    background-color: white;
+    font-size:20px;
+}
+
+[data-href] { cursor: pointer; }
+
+
+
+</style>
+<body>
+<div class="search">
+<nav class="navbar navbar-expand-sm ">
+  <form class="form-inline" action="/action_page.php">
+    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+    <button class="mybutton" type="submit">Search</button>
+  </form>
+</nav>
+    <div>
+
+    </div>
+</div>
+
+
+  <div class="query_buttons">
+  {% for title in title_list %}
+      <div>
+     <button class="mybutton" onclick="editSearchQuery(this.id)" id="{{ title }}"> {{ title }} </button></div>
+  {% endfor %}
+  </div>
+
+    <div class="container">
+          <h3>Search Queries</h3>
+          <table class="table table-hover">
+            <thead>
+              <tr >
+                <th>Title</th>
+                <th>Query String</th>
+                <th>New (24 hours)/Total</th>
+                <th>Fetch Frequency</th>
+                <th>Date</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for searchquery in zip(searchqueries,total,new_documents): %}
+              <tr>
+                <td><a onclick="editSearchQuery(this.id)" id="{{searchquery[0].title}}" href="#">{{searchquery[0].title}}</a></td>
+                <td>{{searchquery[0].query_string}}</td>
+                <td>{{searchquery[2]}}/{{searchquery[1]}}</td>
+                <td>{{searchquery[0].fetch_frequency}}</td>
+
+                <td>{{"{:%d, %b %Y : %I:%M %p} EST".format(searchquery[0].date_created) }}</td>
+                {%if searchquery[0].status=='paused'%}
+                  <td><button style="color:red;" class="batn" onclick="changeStatus(this.id)" id="{{searchquery[0].title}}"><i class="fa fa-play-circle-o"></i></button></td>
+                {%else%}
+                  <td><button class="batn" onclick="changeStatus(this.id)" id="{{searchquery[0].title}}"><i class="fa fa-play-circle-o"></i></button></td>
+                {%endif%}
+                <td><button class="batn1" onclick="viewDocuments(this.id)" id="{{searchquery[0].title}}"; ><i class="fa fa-file-text-o"></i></button></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="box">
+        <button class="mybutton" onclick="myAddNew()">Add Search Query</button>
+    </div>
+
+
+
+<script>
+function myAddNew() {
+  window.location.href = "/searchqueries/addnewsearchquery";
+}
+function editSearchQuery(title) {
+  window.location.href = "/searchqueries/editsearchquery?title="+title;
+}
+function viewDocuments(title){
+    window.location.href = "/searchqueries/searchquerydocuments?title="+title;
+}
+function changeStatus(title){
+  $.post( "/searchqueries/changestatus", { title: title})
+  .done(function( data ) {
+    window.location.replace("/searchqueries");
+  });
+}
+
+
+</script>
+
+</body>
+
+{% endblock %}

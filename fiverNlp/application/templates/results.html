@@ -1,0 +1,66 @@
+{% extends 'layout2.html' %}
+
+{% block content %}
+
+{% if data %}
+<style type="text/css">
+#purpose{
+    background-color: {{ class_colors['purpose'] }}; 
+    color: black;
+}
+#craftsmanship{
+    background-color:  {{ class_colors['craftsmanship'] }};
+    color: black;
+}
+#aesthetic{
+    background-color: {{ class_colors['aesthetic'] }};
+    color: black;
+}
+#narrative{
+    background-color: {{ class_colors['narrative'] }};
+    color: black;
+}
+</style>
+{% endif %}
+
+<!-- Showing Output div -->
+<div class="pl-4 py-3">
+	<p>
+	    {% for sentence, _, label, _ in data %}
+		<mark id="{{ label }}"> {{ sentence }}</mark>
+		{% endfor %}
+    </p>
+</div>
+
+{% if data %}
+<form method="POST" action="">
+	{{ specialForm.csrf_token }}
+	<ol>
+		
+		<!-- Diaplaying Sentences Classified by the Model -->
+		{% for d in data %}
+			<li>
+				<div>
+					<p>
+						{{ d[0] }}
+						<br>
+						<span id="{{ d[2] }}">{{ d[2] }}</span>
+						<span class="mx-2">| Confidence: {{ d[1] }}% |</span>
+						{{ d[3] }}
+					</p>
+							
+				</div>
+				<br>
+			</li>
+		{% endfor %}
+	</ol>
+
+	{{ specialForm.proceed(class='btn btn-outline-dark m-4')  }}
+	<br>
+	<span>NOTE: Proceeding will add {{ len_data }} news rows to the bin</span>
+			
+</form>
+{% endif %}
+
+{% endblock %}
+

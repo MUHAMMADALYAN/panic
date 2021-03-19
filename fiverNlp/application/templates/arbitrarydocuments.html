@@ -1,0 +1,94 @@
+{% extends 'layout.html' %}
+{% block content %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+
+<style>
+.query_buttons{
+    display: flex;
+    flex-direction: row;
+}
+.query_buttons > div{
+    margin: 10px;
+}
+
+.search{
+    flex-direction: row;
+    margin-left: 40%;
+}
+
+.batn,.batn1 {
+    border-color: white;
+    background-color: white;
+    font-size:20px;
+}
+
+[data-href] { cursor: pointer; }
+
+
+
+</style>
+<body>
+<div class="search">
+<nav class="navbar navbar-expand-sm ">
+  <form class="form-inline" action="/action_page.php">
+    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+    <button class="mybutton" type="submit">Search</button>
+  </form>
+</nav>
+    <div>
+
+    </div>
+</div>
+
+
+  <div class="query_buttons">
+  {% for title in title_list %}
+      <div>
+     <button class="mybutton" onclick="editSearchQuery(this.id)" id="{{ title }}"> {{ title }} </button></div>
+  {% endfor %}
+  </div>
+
+    <div class="container">
+          <h3>Arbitrary Documents</h3>
+          <table class="table table-hover">
+            <thead>
+              <tr >
+                <th>Title</th>
+                <th>Industry Tags</th>
+                <th>Date</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in documents %}
+              <tr>
+                <td><a onclick="editDocument(this.id)" id="{{i.title}}" href="#">{{i.title}}</a></td>
+                <td>{{i.industry_tags}}</td>
+                <td>{{"{:%d, %b %Y : %I:%M %p} EST".format(i.date_created) }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="box">
+        <button class="mybutton" onclick="myAddNew()">Add Arbitrary Document</button>
+    </div>
+
+
+
+<script>
+function myAddNew() {
+  window.location.href = "/arbitrarydocuments/addnew";
+}
+function editDocument(title) {
+  window.location.href = "/arbitrarydocuments/edit?title="+title;
+}
+
+</script>
+
+</body>
+
+{% endblock %}

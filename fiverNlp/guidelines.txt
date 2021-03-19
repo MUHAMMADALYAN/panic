@@ -1,0 +1,13 @@
+####	GUIDELINES	####
+
+1) You can only upload a tsv file to the web portal for training, It's format should be: <label><tab><sentence> (an example file is attached)
+2) Your Training Data must atleast consist of 70 rows (ie 70 labels and sentences) for the training to start, else the web-portal will display an error msg with a guideline.
+3) Training Data Labels should not be other than the 4 labels specified ie 'purpose', 'craftsmanship', 'aesthetic', 'narrative' (previously 'none'), else the web-portal will display an error msg along with a guideline.
+
+4) You can change the color in which the predictions are highlightd, the new colors should always start with a '#' and have 6 character in front of '#', if you enter an invalid color tag, it will not use it and the class will be colorless.
+
+5) When you enter text to classify, Your Sentences should end with a period i.e '. ', if two sentencs are still read as one, put a 'new line' after the period. 
+5) When you click on 'classify' on for prediction it will take you to a new web page called 'Results' where the predicted sentences will be displayed along with their colors and below them you can find each sentence along with its 'predicted class', 'confidence' and a 'menu to select the correct class', by default the  menu will have the predicted class.
+6) At the end of the 'Results' page you will find a button 'Proceed', it will take you to a new page on which you can either download the 'predicted and corrected data' or 'train the model on that data'.
+
+7)If you open the portal and ever see a blank page saying "EOF", try using another Web-Browser. It would be caused by incompatible Web-Browsers. Some Recomended Web-Browsers are Google Chrome, Opera Mini, Safari.

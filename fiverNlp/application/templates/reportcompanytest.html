@@ -1,0 +1,473 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<head>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type=text/javascript>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  </script>
+
+<style>
+    .flex-vs{
+        display: flex;
+        flex-direction: row;
+    }
+    .flex-vs > div{
+        flex: 50%;
+        margin-left: 10px;
+    }
+
+    *{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		font-family: Arial;
+
+	}
+	h3{
+		color: grey;
+	}
+
+
+	.section-1{
+		display: flex;
+		padding-right: 40px;
+	}
+
+	.section-1 ul{
+		text-align: right;
+		padding-right: 15%;
+		margin-top: 30px;
+	}
+	.section-1 li{
+		list-style-type: none;
+	}
+	.circle{
+		background-color: #5A49B3;
+		border-radius: 50%;
+		text-align: center;
+		line-height: 80px;
+		vertical-align: middle;
+		color: white;
+		width: 80px;
+		height: 80px;
+		margin: auto;
+	}
+
+    #sementicSimilarities > div{
+        margin-right:5% ;
+
+    }
+
+	.section-3-1{
+		flex: 2;
+	}
+
+	.section-3-2{
+        display: flex;
+        flex-direction: column;
+		flex: 1;
+		text-align: center;
+        justify-content: center;
+	}
+
+
+	.section-3-3{
+		flex: 2;
+	}
+
+	.section-4{
+		display: flex;
+	}
+
+	.section-4 ul{
+		border:1px solid grey;
+		border-radius: 3px;
+		padding: 20px;
+	}
+	.section-4 li{
+		list-style-type: none;
+		margin-top: 10px;
+	}
+
+	.section-4-1{
+		flex: 1;
+		margin-right: 10px;
+        text-align: center;
+	}
+
+	.section-4-2{
+		flex: 1;
+		margin-left: 10px;
+		text-align: center;
+
+	}
+
+	@media screen and (max-width: 768px){
+
+
+		.section-1{
+			flex-direction: column;
+		}
+		.section-4{
+			flex-direction: column;
+		}
+		.section-4-2{
+			margin-top: 20px;
+		}
+		#bar{
+			width: 400px;
+		}
+	}
+
+
+
+</style>
+</head>
+<body>
+  <form action="/reporttest" method="POST">
+  <input type="hidden" name="id" value="{{report.id}}">
+  <input type="hidden" name="type" value="{{report.type}}">
+
+<div class="container">
+   <br>
+  <h2>Add Details of New Report</h2>
+  <label for=""> Title </label>
+  <input type="text" class="form-control" name="title" id="title" value="{{report.title}}"><br>
+  <form action="">
+   <div class="flex-vs">
+   <div id="companya"  class="form-group">
+
+      <label for="">Company A</label>
+      <select name="first" class="form-control">
+        {%for i in companydocuments%}
+        {%if(i.title==report.first)%}
+        <option value="{{i.title}}" selected>{{i.title}}</option>
+        {%else%}
+        <option value="{{i.title}}">{{i.title}}</option>
+        {%endif%}
+        {%endfor%}
+      </select>
+    </div>
+
+      <div id="companyb"  class="form-group">
+      <label for="">Company B </label>
+      <select name="second" class="form-control">
+        {%for i in companydocuments%}
+          {%if(i.title==report.second)%}
+          <option value="{{i.title}}" selected>{{i.title}}</option>
+          {%else%}
+          <option value="{{i.title}}">{{i.title}}</option>
+          {%endif%}
+        {%endfor%}
+      </select>
+      </div>
+    </div>
+
+
+   <div class="flex-vs">
+     <div id="frequently"  class="form-group">
+      <label for="">Keep up to date</label>
+      {%if(report and report.up_to_date)%}
+        <input type="checkbox" name="up_to_date" id="up_to_date" value="yes" checked>
+      {%else%}
+        <input type="checkbox" name="up_to_date" id="up_to_date" value="yes">
+      {%endif%}
+    </div>
+
+
+     <div id="frequently"  class="form-group">
+      <label for="">Frequency </label>
+      <select name="frequency" class="form-control">
+      {%if report and report.frequency=='Daily'%}
+      <option selected>Daily</option>
+      <option>Weekly</option>
+      <option>Monthly</option>
+      {%endif%}
+      {%if report and report.frequency=='Weekly'%}
+      <option>Daily</option>
+      <option selected>Weekly</option>
+      <option>Monthly</option>
+      {%endif%}
+      {%if report and report.frequency=='Monthly'%}
+      <option>Daily</option>
+      <option>Weekly</option>
+      <option selected>Monthly</option>
+      {%endif%}
+      </select>
+    </div>
+    </div>
+
+
+      <div id="uptoDate" style="margin-top: 35px; display: none" class="checkbox">
+      <label><input style="margin-right: 5px" type="checkbox" value="">Keep-upto-date</label>
+    </div>
+
+    <div style="display:flex; margin-left: 80%">
+    <div style=" margin-top: 2px; align-items: flex-end">
+       <button type="button" onclick="deleteClick(this.id)" id="{{ report.id }}" style="color:blueviolet; background-color: inherit; border-color: inherit; border:none"><b>Delete</b></button>
+  </div>
+  <div style=" margin-top: 2px; margin-left: 40px; align-items: flex-end">
+       <button type="submit" style="color:blueviolet; background-color: inherit; border-color: inherit; border:none"><b>Rerun</b></button>
+  </div>
+  </div>
+    <br>
+  </div>
+
+<div id="vscompanyreport"  class="container">
+      		<div class="section-1">
+            {%if score1:%}
+      			<div class="section-1-1">
+      				<h2>Effectiveness Scores (vs Default Media)</h2>
+      					<label>Overall {{"{:.1f}".format(score1.get('overall'))}} %</label>
+      					<li style="color: lightgreen;">Purpose: {{"{:.1f}".format(score1.get('purpose'))}} %</li>
+      					<li style="color: orange;">Craftsmanship: {{"{:.1f}".format(score1.get('craftsmanship'))}} %</li>
+      					<li style="color: lightblue;">Aesthetics: {{"{:.1f}".format(score1.get('aesthetic'))}} %</li>
+                <li > Narrative: {{"{:.1f}".format(score1.get('narrative'))}} %</li>
+      			</div>
+            {%endif%}
+            {%if score2:%}
+            <div class="section-1-1">
+      				<h2>Effectiveness Scores (vs Default Media)</h2>
+      					<label>Overall {{"{:.1f}".format(score2.get('overall'))}} %</label>
+      					<li style="color: lightgreen;">Purpose: {{"{:.1f}".format(score2.get('purpose'))}} %</li>
+      					<li style="color: orange;">Craftsmanship: {{"{:.1f}".format(score2.get('craftsmanship'))}} %</li>
+      					<li style="color: lightblue;">Aesthetics: {{"{:.1f}".format(score2.get('aesthetic'))}} %</li>
+                <li > Narrative: {{"{:.1f}".format(score2.get('narrative'))}} %</li>
+      			</div>
+            {%endif%}
+            {%if providers[0]:%}
+      			<div class="section-1-2">
+      				<h2>Top Matching Search Media Providers</h2>
+                {%for i in providers[0][:5]:%}
+      					<li>{{i[0]}}: {{"{:.1f}".format(i[1])}}%</li>
+                {%endfor%}
+      			</div>
+            {%endif%}
+            {%if providers[1]:%}
+            <div class="section-1-3">
+              <h2>Top Matching Search Media Providers</h2>
+                {%for i in providers[1][:5]:%}
+                <li>{{i[0]}}: {{"{:.1f}".format(i[1])}}%</li>
+                {%endfor%}
+            </div>
+
+            {%endif%}
+
+
+      		</div>
+		<br>
+		<br>
+    <h2>Semantic Similarities</h2>
+    <div id="sementicSimilarities" class="form-group" style="display: flex; flex-direction: row" >
+       <div >
+      <select name="dimensions" id="dimension" class="form-control">
+          {%for i in dimensions%}
+            {%if(i==report.dimension)%}
+              <option value="{{i}}" selected>{{i}}</option>
+            {%else%}
+              <option value="{{i}}">{{i}}</option>
+            {%endif%}
+          {%endfor%}
+
+      </select>
+         </div>
+
+      <div style="margin-top: 5px">
+          <div class="checkbox">
+            {%if( report and report.descending)%}
+            <label><input style="margin-right: 10px" name="descending" id="descending" type="checkbox" value="yes" checked>Descending</label>
+            {%else%}
+            <label><input style="margin-right: 10px" name="descending" id="descending" type="checkbox" value="yes">Descending</label>
+            {%endif%}
+    </div>
+      </div>
+       <div>
+         {%if report%}
+         <input type="text" class="form-control"  placeholder="Min" name="range_from" id="range_from" value="{{report.range_from}}">
+         {%else%}
+         <input type="text" class="form-control"  placeholder="Min" name="range_from" id="range_from">
+         {%endif%}
+       </div>
+         <div>
+           {%if report%}
+           <input type="text" class="form-control"  placeholder="Min" name="range_to" id="range_to" value="{{report.range_to}}">
+           {%else%}
+           <input type="text" class="form-control"  placeholder="Max" name="range_to" id="range_to">
+           {%endif%}
+       </div>
+       <div style=" margin-top: 2px;">
+           <button type="button" onclick="updateClick()" style="color:blueviolet; background-color: inherit; border-color: inherit; border:none"><b>Update</b></button>
+      </div>
+     </div>
+   </form>
+
+     {%for i in sentences%}
+     <div class="section-1">
+       <div class="section-3-1">
+         <form target="_blank" action="/companies/classifier" method="POST">
+           <input type="hidden" name="title" value="{{report.first}}">
+           <input type="hidden" name="sentence" value="{{i.sentence1}}">
+           <h3>{{report.first}}</h3>
+           <a type="button" onclick="this.parentElement.submit()" >{{i.sentence1}}</a><br>
+         </form>
+       </div>
+
+       <div class="section-3-2">
+         <div class="circle">{{i.similarity}}</div><br>
+       </div>
+
+       <div class="section-3-3">
+         <form target="_blank" action="/companies/classifier" method="POST">
+           <input type="hidden" name="title" value="{{report.second}}">
+           <input type="hidden" name="sentence" value="{{i.sentence2}}">
+           <h3>{{report.second}}</h3>
+          <a type="button" onclick="this.parentElement.submit()" >{{i.sentence2}}</a><br>
+         </form>
+       </div>
+     </div>
+     <br>
+     {%endfor%}
+     <button id="load" type="button" onclick="loadMore()">load more</button>
+
+</body>
+
+
+
+
+<script>
+var offset = 21;
+function loadMore(){
+    $.post( "/loadmore", { id:{{report.id}},offset: offset})
+    .done(function( data ) {
+        document.getElementById("load").remove();
+        s = data['data']
+        for(i=0;i<s.length;i++){
+
+            var br = document.createElement("br");
+            var section1 = document.createElement("div");
+            section1.setAttribute("class","section-1");
+            var section31 = document.createElement("div");
+            section31.setAttribute("class","section-3-1");
+            var section32 = document.createElement("div");
+            section32.setAttribute("class","section-3-2");
+            var section33 = document.createElement("div");
+            section33.setAttribute("class","section-3-3");
+
+
+            var a1 = document.createElement("a");
+            a1.setAttribute("type", "button");
+            a1.setAttribute("onclick", "this.parentElement.submit()");
+            a1.appendChild(document.createTextNode(s[i]["sentence1"]));
+
+
+
+
+            var title = document.createElement("input");
+            title.setAttribute("type", "hidden");
+            title.setAttribute("name", "title");
+            title.setAttribute("value", "{{report.first}}");
+
+            var sentence = document.createElement("input");
+            sentence.setAttribute("type", "hidden");
+            sentence.setAttribute("name", "sentence");
+            sentence.setAttribute("value", s[i]["sentence1"]);
+
+            var h1 = document.createElement("H3");
+            h1.appendChild(document.createTextNode("{{report.first}}"));
+
+
+            var form1 = document.createElement("form");
+            form1.setAttribute("method", "post");
+            form1.setAttribute("target", "_blank");
+            form1.setAttribute("action", "/companies/classifier");
+
+            form1.appendChild(title);
+            form1.appendChild(sentence);
+            form1.appendChild(h1);
+            form1.appendChild(a1);
+
+            var center = document.createElement("div");
+            center.setAttribute("class","circle");
+            center.appendChild(document.createTextNode(s[i]["similarity"]));
+            section32.appendChild(center);
+
+
+
+
+            var a2 = document.createElement("a");
+            a2.setAttribute("type", "button");
+            a2.setAttribute("onclick", "this.parentElement.submit()");
+            a2.appendChild(document.createTextNode(s[i]["sentence2"]));
+
+            var title = document.createElement("input");
+            title.setAttribute("type", "hidden");
+            title.setAttribute("name", "title");
+            title.setAttribute("value", "{{report.second}}");
+            var sentence = document.createElement("input");
+            sentence.setAttribute("type", "hidden");
+            sentence.setAttribute("name", "sentence");
+            sentence.setAttribute("value", s[i]["sentence2"]);
+            var h2 = document.createElement("H3");
+            h2.appendChild(document.createTextNode("{{report.second}}"));
+
+            var form2 = document.createElement("form");
+            form2.setAttribute("method", "post");
+            form2.setAttribute("target", "_blank");
+            form2.setAttribute("action", "/companies/classifier");
+
+            form2.appendChild(title);
+            form2.appendChild(sentence);
+            form2.appendChild(h2);
+            form2.appendChild(a2);
+
+
+
+            section31.appendChild(form1);
+            section33.appendChild(form2);
+            section1.appendChild(section31);
+            section1.appendChild(section32);
+            section1.appendChild(section33);
+
+            document.getElementById('vscompanyreport').appendChild(br);
+            document.getElementById('vscompanyreport').appendChild(section1);
+        }
+        var br = document.createElement("br");
+        var b = document.createElement("button");
+        b.setAttribute("type", "button");
+        b.setAttribute("id", "load");
+        b.setAttribute("onclick", "loadMore()");
+        b.appendChild(document.createTextNode("load more"));
+        document.getElementById('vscompanyreport').appendChild(br);
+        document.getElementById('vscompanyreport').appendChild(b);
+    });
+
+    offset+=20;
+}
+
+
+function updateClick(){
+    var range_from = document.getElementById("range_from");
+    var range_to = document.getElementById("range_to");
+    var descending = document.getElementById("descending");
+    var up_to_date = document.getElementById("up_to_date");
+    var dimension = document.getElementById("dimension");
+    var title = document.getElementById("title");
+    $.post( "/updatereport", { id: {{report.id}},type:"{{report.type}}",range_from: range_from.value,range_to: range_to.value,descending:descending.checked,up_to_date:up_to_date.checked,dimension:dimension.value,title:title.value}).done(function( data ) {
+      if(data=="done"){
+        window.location.replace("/reporttest?id={{report.id}}");
+      }
+      else{
+        alert("error")
+      }
+    });
+  }
+
+
+  function deleteClick(id) {
+    window.location.href = "/deletereport?id="+id;
+  }
+</script>
+
+
+{% endblock %}

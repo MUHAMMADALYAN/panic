@@ -1,0 +1,90 @@
+{% extends 'layout2.html' %}
+
+{% block content %}
+
+{% if data %}
+<style type="text/css">
+#purpose{
+    background-color: {{ class_colors['purpose'] }}; 
+    color: black;
+}
+#craftsmanship{
+    background-color:  {{ class_colors['craftsmanship'] }};
+    color: black;
+}
+#aesthetic{
+    background-color: {{ class_colors['aesthetic'] }};
+    color: black;
+}
+#narrative{
+    background-color: {{ class_colors['narrative'] }};
+    color: black;
+}
+</style>
+{% endif %}
+
+
+
+    <form action="/setthreshold">
+        <input name="t" placeholder="threshold" value="{{threshold}}">
+        <input type="submit" >
+    </form>
+
+
+<form method="POST" action="" id="forma">
+	{{ specialForm.csrf_token }}
+	<ol id="list_data">
+		<!-- Displaying Data From Bin -->
+		{% if len_bin_data > 0 %}
+			<hr>
+			<legend class="text-center">Data From bin (uneditable)</legend>
+			{% for d in data %}
+				<li>
+					<div>
+						<p>
+							{{ d[0] }}
+							<br>
+							Class: <span id="{{ d[1] }}">{{ d[1] }}</span>
+							{{d[2]}}
+						</p>
+					</div>
+					<button onClick="this.parentNode.parentNode.removeChild(this.parentNode);">Delete me</button>
+				</li>
+				
+
+			{% endfor %}
+			
+			<hr>
+		{% endif %}
+		
+		
+
+	{{ specialForm.proceed(class='btn btn-outline-dark m-4 he')  }}
+	<br>
+	<span>NOTE: Proceeding will add {{ len_data }} news rows to the bin</span>
+			
+</form>
+
+
+<script type="text/javascript">
+
+	document.getElementByClass("he")[0].setAttribute("onClick()");
+		document.getElementByClass("he")[0].onClick(s())
+
+		function s(){
+		//var lits=document.getElementById("list_data").getElementsByTag("li")
+		var lis = document.querySelectorAll("#list_data li");
+		var country = {};
+		for (var i = 0; i < lis.length; i++) {
+		  country[i] = lis[i].textContent;
+		}
+
+		console.log(country);
+
+		//console.log(lits)
+		//window.alert(lits)
+}
+	
+</script>
+
+{% endblock %}

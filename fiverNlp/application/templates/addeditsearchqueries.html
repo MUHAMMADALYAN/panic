@@ -1,0 +1,102 @@
+{% extends 'layout.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<body>
+
+
+
+<div class="container">
+   <br>
+  <h2>Add Details of New Search Query</h2>
+
+  <form action="/searchqueries/savesearchquery" class="needs-validation" novalidate method="post">
+     <input type="hidden" name="old_title" value="{{searchquery.title}}">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control"  placeholder="Enter Title" name="title" required value="{{searchquery.title}}">
+      <div class="valid-feedback">Valid.</div>
+      <div class="invalid-feedback">Please fill out this field.</div>
+    </div>
+    <div class="form-group">
+      <label for="query_string">Query String</label>
+        <input type="text" class="form-control"  placeholder="Enter query string"  name="query_string" value="{{searchquery.query_string}}">
+        <div class="valid-feedback">Valid.</div>
+      <div class="invalid-feedback">Please fill out this field.</div>
+    </div>
+
+    <div  class="form-group">
+      <label for=""> Language Code </label>
+      <select name="market_language_code" class="form-control">
+        {%for i in MARKET_LANGUAGE_CODES%}
+        {%if(i==searchquery.market_language_code)%}
+        <option value="{{i}}" selected>{{i}}</option>
+        {%else%}
+        <option value="{{i}}">{{i}}</option>
+        {%endif%}
+        {%endfor%}
+      </select>
+      <label>Country Code:</label>
+      <select name="country_code" class="form-control">
+        {%for i in COUNTRY_CODES%}
+        {%if(i==searchquery.country_code)%}
+        <option value="{{i}}" selected>{{i}}</option>
+        {%else%}
+        <option value="{{i}}">{{i}}</option>
+        {%endif%}
+        {%endfor%}
+      </select>
+      <label>SITE TYPE:</label>
+      <select name="site_type" class="form-control">
+        {%for i in SITE_TYPES%}
+          {%if(i==searchquery.site_type)%}
+          <option value="{{i}}" selected>{{i}}</option>
+          {%else%}
+          <option value="{{i}}">{{i}}</option>
+          {%endif%}
+        {%endfor%}
+
+      </select>
+
+    </div>
+
+    <div class="form-group">
+      <label for="site">SITE:</label>
+      <input type="text" class="form-control"  placeholder="Enter Site" name="site" required value="{{searchquery.site}}">
+    </div>
+    <div class="form-group">
+      <label for="characters">CHARACTERS:</label>
+      <input type="text" class="form-control"  placeholder="Enter Characters" name="characters" required value="{{searchquery.characters}}">
+    </div>
+
+    <div  class="form-group">
+      <label>Fetch Frequency:</label>
+      <select name="fetch_frequency" class="form-control">
+        {%for i in REST%}
+        {%if(i==searchquery.fetch_frequency)%}
+        <option value="{{i}}" selected>{{i}}</option>
+        {%else%}
+        <option value="{{i}}">{{i}}</option>
+        {%endif%}
+        {%endfor%}
+      </select>
+    </div>
+    <button class="mybutton" type = "submit" >Save</button>
+  </form>
+    <br>
+  {%if(searchquery.title)%}
+    <button class="mybutton" type="button" onclick="deleteSearchQuery()" >Delete Search Query</button><br>
+  {%endif%}
+</div>
+
+</body>
+<script>
+  function deleteSearchQuery(){
+        window.location.href = "/searchqueries/deletesearchquery?title="+"{{searchquery.title}}";
+    }
+    function viewDocuments(){
+        window.location.href = "/searchqueries/searchquerydocuments?title="+"{{searchquery.title}}";
+    }
+</script>
+</html>
+{% endblock %}

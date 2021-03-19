@@ -1,0 +1,89 @@
+{% extends 'layout2.html' %}
+
+{% block content %}
+
+<div class="container border text-center m-4">
+	<legend>Current Class Colors</legend>
+	{% for class, color in class_colors.items() %}
+		<p>
+			{{ class }}: <span style="background-color: {{ color }}">{{ color }}</span>
+		</p>
+	{% endfor %}
+</div>
+
+<div class="container m-4">
+  <form method="POST" action="{{ url_for('change_class_colors') }}">
+	  <fieldset class="form-group">
+
+		{{ form.csrf_token }}
+        <legend>Enter New Colors Tags</legend>
+
+		  <div class="form-group">
+        	{{ form.new_purpose.label }}
+        	{% if form.new_purpose.errors %}
+        	  {{ form.new_purpose(class='form-control is-invalid') }}
+          	  <div class="invalid-feedback">
+                {% for error in form.new_purpose.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+          	  </div>
+          	{% else %}
+              {{ form.new_purpose(placeholder="Enter new Color like #123456", class='form-control') }}
+            {% endif %}
+ 
+      	  </div>
+
+		  <div class="form-group">
+        	{{ form.new_craftsmaship.label }}
+        	{% if form.new_craftsmaship.errors %}
+        	  {{ form.new_craftsmaship(class='form-control is-invalid') }}
+          	  <div class="invalid-feedback">
+                {% for error in form.new_craftsmaship.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+          	  </div>
+          	{% else %}
+              {{ form.new_craftsmaship(placeholder="Enter new Color like #123456", class='form-control') }}
+            {% endif %}
+ 
+      	  </div>
+
+		  <div class="form-group">
+        	{{ form.new_aesthetic.label }}
+        	{% if form.new_aesthetic.errors %}
+        	  {{ form.new_aesthetic(class='form-control is-invalid') }}
+          	  <div class="invalid-feedback">
+                {% for error in form.new_aesthetic.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+          	  </div>
+          	{% else %}
+              {{ form.new_aesthetic(placeholder="Enter new Color like #123456", class='form-control') }}
+            {% endif %}
+ 
+      	  </div>
+
+      	  <div class="form-group">
+        	{{ form.new_narrative.label }}
+        	{% if form.new_narrative.errors %}
+        	  {{ form.new_narrative(class='form-control is-invalid') }}
+          	  <div class="invalid-feedback">
+                {% for error in form.new_narrative.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+          	  </div>
+          	{% else %}
+              {{ form.new_narrative(placeholder="Enter new Color like #123456", class='form-control') }}
+            {% endif %}
+ 
+      	  </div>	  
+
+	      <div class="form-group">	      	
+	        {{ form.submit(class='btn btn-outline-dark') }}
+	      </div>
+
+	  </fieldset>
+	</form>
+</div>
+
+{% endblock %}

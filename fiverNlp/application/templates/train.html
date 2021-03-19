@@ -1,0 +1,79 @@
+{% extends 'layout2.html' %}
+
+{% block content %}
+		
+
+		<div class="ml-4 my-3">
+			<h1>Training</h1>
+	  		<form method="POST" enctype="multipart/form-data" action="{{ url_for('train') }}">
+		  		<fieldset class="form-group">
+	           
+	      		{{ inputform.hidden_tag() }}          
+	           
+	       		<div class="form-group">
+	            	{{ inputform.file }} 
+	        	</div>
+	             
+	          	<div class="form-group ">	      	
+	            	{{ inputform.submit(class='btn btn-outline-dark') }}
+	          	</div>
+	    		</fieldset>
+	  		</form>
+	  	</div>
+
+	  	<div class="ml-4 my-3">
+	  		<form method="POST" action="{{ url_for('train_model', retrain=False) }}">
+		  		<fieldset class="form-group">
+	           
+	      		{{ trainModelform.hidden_tag() }}          
+	             
+	          	<div class="form-group ">	      	
+	            	{{ trainModelform.train(class='btn btn-outline-dark') }}
+	            	<p id="guideMsg" style="color: red"></p>
+	          	</div>
+	    		</fieldset>
+	  		</form>
+	  	</div>
+
+	  	<div class="ml-4">
+
+	  		<button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#restartModal">Start Model From Scratch</button>
+
+			<!-- Modal -->
+			<div class="modal fade" id="restartModal" tabindex="-1" role="dialog" aria-labelledby="restartModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="restartModalLabel">Start Model from Scratch?</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        Are you sure you want to restart the model from scratch, once done it can not be rolled back
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancel</button>
+			        <form action="{{ url_for('restart_model') }}" method="POST">
+			        	<button type="submit" class="btn btn-outline-success">Continue</button>
+			       	</form>
+			      </div>
+			    </div>
+			  </div>
+			</div>	  		
+
+	  	</div>
+
+	  	<script type="text/javascript">
+
+		$("#train").click(function(){
+			$("#train").prop("disabled", true);
+			$("#guideMsg").text("Model Traning Started, Please wait, You will be notified shortly")
+			$.post("{{ url_for('train_model', retrain=False) }}", function(){
+				window.location.replace("{{ url_for('home') }}")				
+			});
+		});
+	
+		</script>
+
+{% endblock %}

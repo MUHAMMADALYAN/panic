@@ -1,0 +1,118 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type=text/javascript>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  </script>
+<style>
+.query_buttons{
+    display: flex;
+    flex-direction: row;
+}
+.query_buttons > div{
+    margin: 10px;}
+
+#querydata {
+    table-layout:fixed;
+}
+#querydata td {
+  min-width: 25px;
+  max-width: 25px;
+  overflow: hidden;
+}
+
+.search{
+    flex-direction: row;
+    margin-left: 40%;
+}
+
+
+#checkmark{
+    border:none;
+    background-color: inherit;
+    border-color: inherit;
+    font-size:24px;
+    color:red;
+}
+
+[data-href] { cursor: pointer; }
+
+
+</style>
+
+<body>
+<div class="search">
+<nav class="navbar navbar-expand-sm ">
+  <form class="form-inline" action="/search" method="POST">
+    <input name="q" class="form-control mr-sm-2" type="text" placeholder="Search">
+    <button class="mybutton" type="submit">Search</button>
+    <input name="title" type="hidden" value="{{title}}">
+  </form>
+</nav>
+    <div>
+
+    </div>
+</div>
+
+
+
+    <div class="container">
+          <table class="table table-hover" id="querydata">
+            <thead>
+              <tr >
+                <th>Title <a href="/searchqueries/searchquerydocuments?title={{title}}&sort=titleup"  onclick="sortit(this.id)" id="titleup">D</a> <a href="/searchqueries/searchquerydocuments?title={{title}}&sort=titledown" onclick="sortit(this.id)" id="titledown">A</a></th>
+                <th>Source <a href="/searchqueries/searchquerydocuments?title={{title}}&sort=sourceup"  onclick="sortit(this.id)" id="sourceup">D</a>  <a href="/searchqueries/searchquerydocuments?title={{title}}&sort=sourcedown"  onclick="sortit(this.id)" id="sourcedown">A</a> </th>
+                <th>Link</th>
+                <th>Date <a href="/searchqueries/searchquerydocuments?title={{title}}&sort=dateup"  onclick="sortit(this.id)" id="dateup">D</a>  <a href="/searchqueries/searchquerydocuments?title={{title}}&sort=datedown"  onclick="sortit(this.id)" id="datedown">A</a> </th>
+                <th>Processing <a href="/searchqueries/searchquerydocuments?title={{title}}&sort=processingup"  onclick="sortit(this.id)" id="processingup">D</a>  <a href="/searchqueries/searchquerydocuments?title={{title </th>
+              </tr>
+            </thead>
+            <tbody>
+
+              {% for i in searchquerydocuments %}
+              <tr>
+
+                <td >
+                  <form action="/searchqueries/editsearchquerydocument" id="{{i.title}}" method="POST">
+                  <a href="#" type onclick="this.parentElement.submit()" name="title" value="{{i.title}}">{{i.title}}</a>
+                </td>
+                <input hidden name="title" value="{{i.title}}">
+                <td>{{i.provider}}</td>
+                <td><a href="{{i.url}}" > Link </a></td>
+                <td>{{"{:%d, %b %Y : %I:%M %p} EST".format(i.date_created) }}</td>
+                {%if(i.clean_text is none)%}
+                  <td><button id="checkmark"><i class="fa fa-check-circle"></i></button></td>
+                {%else%}
+                  {%if i.clean_text | length < 500  %}
+                    <td><button id="checkmark"><i class="fa fa-check-circle"></i></button></td>
+                  {%else%}
+                    <td><button style="color: green;" id="checkmark"><i class="fa fa-check-circle"></i></button></td>
+                  {%endif%}
+                {%endif%}
+              </form>
+
+              </tr>
+
+              {% endfor %}
+
+            </tbody>
+          </table>
+    </div>
+
+<script>
+
+function link(url) {
+  var win = window.open(url, '_blank');
+  win.focus();
+  // window.location.href = url;
+}
+
+function sortit(url) {
+  window.location.href = "/searchqueries/searchquerydocuments?title={{title}}"+"&sort="+url;
+}
+
+</script>
+
+</body>
+
+{% endblock %}

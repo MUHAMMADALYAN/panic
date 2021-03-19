@@ -1,0 +1,314 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<style>
+    .flex-vs{
+        display: flex;
+        flex-direction: row;
+    }
+    .flex-vs > div{
+        flex: 50%;
+        margin-left: 10px;
+    }
+
+    *{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		font-family: Arial;
+
+	}
+	h3{
+		color: grey;
+	}
+
+
+	.section-1{
+		display: flex;
+		padding-right: 40px;
+	}
+
+	.section-1 ul{
+		text-align: right;
+		padding-right: 15%;
+		margin-top: 30px;
+	}
+	.section-1 li{
+		list-style-type: none;
+	}
+	.circle{
+		background-color: #5A49B3;
+		border-radius: 50%;
+		text-align: center;
+		line-height: 80px;
+		vertical-align: middle;
+		color: white;
+		width: 80px;
+		height: 80px;
+		margin: auto;
+	}
+	.section-3-1{
+		flex: 2;
+	}
+
+	.section-3-2{
+        display: flex;
+        flex-direction: column;
+		flex: 1;
+		text-align: center;
+        justify-content: center;
+	}
+
+
+	.section-3-3{
+		flex: 2;
+	}
+
+	.section-4{
+		display: flex;
+	}
+
+	.section-4 ul{
+		border:1px solid grey;
+		border-radius: 3px;
+		padding: 20px;
+	}
+	.section-4 li{
+		list-style-type: none;
+		margin-top: 10px;
+	}
+
+	.section-4-1{
+		flex: 1;
+		margin-right: 10px;
+        text-align: center;
+	}
+
+	.section-4-2{
+		flex: 1;
+		margin-left: 10px;
+		text-align: center;
+
+	}
+
+	@media screen and (max-width: 768px){
+
+
+		.section-1{
+			flex-direction: column;
+		}
+		.section-4{
+			flex-direction: column;
+		}
+		.section-4-2{
+			margin-top: 20px;
+		}
+		#bar{
+			width: 400px;
+		}
+	}
+
+
+
+</style>
+</head>
+<body>
+
+<div class="container">
+   <br>
+  <h2>Add Details of New Report</h2>
+
+  <form action = "/newreport" method = "POST">
+    <div  class="form-group">
+      <label for=""> Title </label>
+      <input type="text" class="form-control"  placeholder="title" name="title" id="title">
+      <label for=""> Report Type </label>
+      <select id="vs" name="type" class="form-control" onchange="typeChange()">
+      {%if(type=="vscompany")%}
+      <option value="vscompany" selected>vs company</option>
+      <option value="vssearchquery">vs search query</option>
+      <option value="vstag">vs tag</option>
+      {%elif(type=="vssearchquery")%}
+      <option value="vscompany">vs company</option>
+      <option value="vssearchquery" selected>vs search query</option>
+      <option value="vstag">vs tag</option>
+      {%elif(type=="vstag")%}
+      <option value="vscompany">vs company</option>
+      <option value="vssearchquery">vs search query</option>
+      <option value="vstag" selected>vs tag</option>
+      {%endif%}
+      </select>
+    </div>
+   <div class="flex-vs">
+   <div id="companya" class="form-group">
+      <label for="">Company A</label>
+      <select name="first" class="form-control">
+        {%for i in first%}
+        <option value="{{i.title}}">{{i.title}}</option>
+        {%endfor%}
+      </select>
+    </div>
+
+      <div id="companyb" class="form-group">
+      <label for="">{{second_label}}</label>
+      <select name="second" class="form-control">
+          {%for i in second%}
+          <option value="{{i.title}}">{{i.title}}</option>
+          {%endfor%}
+      </select>
+    </div>
+
+    </div>
+     <div id="frequently" class="form-group">
+      <label for="">Frequency </label>
+      <select name="frequency" class="form-control">
+        <option value="Daily">Daily</option>
+        <option value="Weekly">Weekly</option>
+        <option value="Monthly">Monthly</option>
+      </select>
+      <br><label>Up To Date: </label>
+      <input type="checkbox" name="up_to_date" value="yes">
+
+    </div>
+    <input class="mybutton" value="create" type="submit">
+    <!-- <a class="mybutton"  onclick="displayreport()" >Create</a> -->
+  </form>
+    <br>
+</div>
+
+<div id="vscompanyreport" style="display: none;" class="container">
+		<div class="section-1">
+			<div class="section-1-1">
+				<h2>Effectiveness Scores (vs Default Media)</h2>
+				<ul>
+					<li>Overall 73.2 %</li>
+					<li style="color: lightgreen;">Purpose 73.2 %</li>
+					<li style="color: orange;">Craftsmanship 73.2 %</li>
+					<li style="color: lightblue;">Aesthetics 73.2 %</li>
+					<li style="color: grey;">Narrative 73.2 %</li>
+				</ul>
+			</div>
+
+			<div class="section-1-2">
+				<h2>Top Matching Search Media Providers</h2>
+				<ul>
+					<li>Overall 73.2 %</li>
+					<li>Purpose 73.2 %</li>
+					<li>Craftsmanship 73.2 %</li>
+					<li>Aesthetics 73.2 %</li>
+					<li>Narrative 73.2 %</li>
+				</ul>
+			</div>
+
+			<div class="section-1-3">
+				<h2>Top Matching Search Media Authors</h2>
+				<ul>
+					<li>Overall 73.2 %</li>
+					<li>Purpose 73.2 %</li>
+					<li>Craftsmanship 73.2 %</li>
+					<li>Aesthetics 73.2 %</li>
+					<li>Narrative 73.2 %</li>
+				</ul>
+			</div>
+
+		</div>
+		<br>
+		<br>
+
+		<div class="section-2">
+			<h2>Semantic Similarities</h2>
+			<br>
+			<img id="bar" src="bar.png">
+		</div>
+		<br>
+
+		<div class="section-1">
+
+			<div class="section-3-1">
+				<h3>Apple</h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ultrices sit sed scelerisque augue ornare. Sit integer et interdum nunc phasellus vel fusce. In aliquam libero habitasse lacus, ut ut facilisis iaculis nulla. Egestas quis et odio dictum turpis non vestibulum ullamcorper.</p><br>
+
+				<h3>Apple</h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ultrices sit sed scelerisque augue ornare. Sit integer et interdum nunc phasellus vel fusce. In aliquam libero habitasse lacus, ut ut facilisis iaculis nulla. Egestas quis et odio dictum turpis non vestibulum ullamcorper.</p><br>
+
+				<h3>Apple</h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ultrices sit sed scelerisque augue ornare. Sit integer et interdum nunc phasellus vel fusce. In aliquam libero habitasse lacus, ut ut facilisis iaculis nulla. Egestas quis et odio dictum turpis non vestibulum ullamcorper.</p>
+			</div>
+
+			<div class="section-3-2">
+				<div class="circle">67%</div><br>
+				<div class="circle"><p>67%</p></div><br>
+				<div class="circle"><p>67%</p></div>
+			</div>
+
+			<div class="section-3-3">
+				<h3>Apple</h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ultrices sit sed scelerisque augue ornare. Sit integer et interdum nunc phasellus vel fusce. In aliquam libero habitasse lacus, ut ut facilisis iaculis nulla. Egestas quis et odio dictum turpis non vestibulum ullamcorper.</p><br>
+
+				<h3>Apple</h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ultrices sit sed scelerisque augue ornare. Sit integer et interdum nunc phasellus vel fusce. In aliquam libero habitasse lacus, ut ut facilisis iaculis nulla. Egestas quis et odio dictum turpis non vestibulum ullamcorper.</p><br>
+
+				<h3>Apple</h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ultrices sit sed scelerisque augue ornare. Sit integer et interdum nunc phasellus vel fusce. In aliquam libero habitasse lacus, ut ut facilisis iaculis nulla. Egestas quis et odio dictum turpis non vestibulum ullamcorper.</p>
+			</div>
+
+		</div>
+		<br><br>
+		<div class="section-4">
+
+			<div class="section-4-1">
+				<h3>Most Freqent Shared Key Words</h3>
+				<ul>
+					<li>Baku</li>
+					<li>Baku</li>
+					<li>Baku</li>
+					<li>Baku</li>
+					<li>Baku</li>
+					<li>Baku</li>
+					<li>Baku</li>
+				</ul>
+			</div>
+
+			<div class="section-4-2">
+				<h3>Most Freqent Shared Key Words</h3>
+				<ul>
+					<li>Baku</li>
+					<li>Baku</li>
+					<li>Baku</li>
+					<li>Baku</li>
+					<li>Baku</li>
+					<li>Baku</li>
+					<li>Baku</li>
+				</ul>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</body>
+
+
+
+
+<script>
+    function displayreport() {
+        $("#vscompanyreport").show()
+}
+
+var typeElement = document.getElementById("vs");
+function typeChange(){
+      var e = document.getElementById("vs");
+      var val = e.value;
+      window.location.href = "/newreport?type="+val;
+  }
+
+</script>
+</body>
+
+
+{% endblock %}

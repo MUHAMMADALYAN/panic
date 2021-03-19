@@ -1,0 +1,130 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<head>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type=text/javascript>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  </script>
+<style>
+    .flex-tags{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center
+}
+    .flex-tags > div{
+        padding: 2px;
+        margin: 2px;
+    }
+
+ul{
+    display: flex;
+    flex-direction: inherit;
+    align-items: center
+}
+
+
+#myUL li {
+    margin-top: 12px;
+    margin-left: 4px;
+    list-style-type: none;
+
+
+}
+
+
+/* Style the list items */
+
+/* Darker background-color on hover */
+
+/* Style the close button */
+.close {
+  position: inherit;
+}
+.close:hover {
+  background-color: #000000;
+  color: white;
+}
+
+/* Style the input */
+#myInput {
+  width: 10%;
+  border-color:#000000
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+<div class="data-display">
+    <div class="container">
+          <h3>Classifier</h3>
+          <table class="table ">
+            <thead>
+              <tr>
+                <th>Sentence</th>
+                <th>Dimension</th>
+              </tr>
+            </thead>
+            <tbody>
+
+
+              {%if sentences%}
+              {%for i in sentences:%}
+                {%if sentences[i] in dimensions:%}
+                <tr>
+                  {%if highlight_sentence:%}
+                    {%if i==highlight_sentence:%}
+                      <td style="color: red;">{{i}}</td>
+                    {%else%}
+                      <td style="color: {{class_colors[sentences[i]]}};">{{i}}</td>
+                    {%endif%}
+                  {%else%}
+                    <td style="color: {{class_colors[sentences[i]]}};">{{i}}</td>
+                    {%endif%}
+
+                  <td><select onchange="save('{{i}}',this.value)" name="dimension">
+                       {%for dimension in dimensions:%}
+                          {%if sentences[i]==dimension:%}
+                           <option selected>{{dimension}}</option>
+                          {%else%}
+                          <option>{{dimension}}</option>
+                          {%endif%}
+                       {%endfor%}
+                  </select></td>
+                </tr>
+                {%endif%}
+              {%endfor%}
+              {%endif%}
+
+            </tbody>
+          </table>
+        </div>
+         <div class="box"><button class="mybutton" onclick="savetobin()">Save to Bin</button></div>
+</div>
+</body>
+
+<script>
+function save(sentence,dimension){
+  $.post( "saveclassifier", { title: "{{title}}",sentence: sentence,dimension:dimension})
+  .done(function( data ) {
+
+  });
+}
+function savetobin(){
+  $.post( "savetobin", { title: "{{title}}",sentence:"{{highlight_sentence}}" })
+  .done(function( data ) {
+    if(data==='done'){
+      alert('added to bin successfully')
+    }
+    else{
+      alert('error')
+    }
+  });
+}
+</script>
+
+
+{% endblock %}

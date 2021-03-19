@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/main.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+    <style>
+
+        .mybutton {
+
+          display: inline-block;
+          padding: 4px 7px;
+          font-size: 16px;
+          cursor: pointer;
+          text-align: center;
+          text-decoration: none;
+          outline: none;
+          color: #000000;
+          background-color: #ffffff;
+          border-color: #000000;
+          border-radius: 15px;
+          box-shadow: 0 9px #999;
+        }
+
+        .mybutton:hover {background-color: #bab1ba}
+
+        .mybutton:active {
+
+          background-color: #999999;
+          box-shadow: 0 5px #666;
+          transform: translateY(4px);
+        }
+
+        .box {
+      position: absolute;
+      width: 100%;
+      bottom: inherit;
+      left: 0;
+      text-align: center;
+}
+
+        * {
+          box-sizing: border-box;
+        }
+        .flex-nav{
+            display: flex;
+            width: 100%;
+            background-color: #423e3e;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        .flex-nav > div{
+            padding: 10px;
+            margin: 10px;
+        }
+        .flex-nav > div > a{
+            color: white;
+            text-decoration: none;}
+        ul{
+    display: flex;
+    flex-direction: inherit;
+    align-items: center
+}
+
+    #myUL li {
+        margin-top: 12px;
+        margin-left: 4px;
+        list-style-type: none;
+    }
+
+    /* Style the list items */
+
+    /* Darker background-color on hover */
+
+    /* Style the close button */
+    .close {
+      position: inherit;
+    }
+    .close:hover {
+      background-color: #000000;
+      color: white;
+    }
+
+    </style>
+</head>
+
+
+    <nav class="navbar navbar-light" style="background-color: #423e3e;">
+      <!-- Navbar content -->
+      <div>
+        <a href="{{ url_for('home') }}"  class="text-white ml-4" style="text-decoration: none">Home     </a>
+        <a href="{{ url_for('train') }}" class="text-white ml-3" style="text-decoration: none">Training </a>
+        <a href="{{ url_for('test') }}" class="text-white ml-3" style="text-decoration: none">Predicting</a>
+        <a href="{{ url_for('companies') }}" class="text-white ml-3" style="text-decoration: none">Companies</a>
+        <a href="{{ url_for('search_queries') }}" class="text-white ml-3" style="text-decoration: none">Search Queries</a>
+        <a href="{{ url_for('arbitrary_documents') }}" class="text-white ml-3" style="text-decoration: none">Arbitrary Documents</a>
+        <a href="{{ url_for('reports') }}" class="text-white ml-3" style="text-decoration: none">Reports</a>
+      </div>
+    </nav>
+
+<body>
+{% block content %} {% endblock %}
+</body>
+
+</html>
