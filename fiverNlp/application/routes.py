@@ -1740,14 +1740,20 @@ def report_company_test():
             report = ReportModel.query.filter_by(id=id).first()
             if(report is None):
                 return 'report not found'
+            print(1)
             companydocuments = CompanyDocumentModel.query.all()
+            print(11)
             searchqueries = SearchQueryModel.query.all()
+            print(111)
             tags = IndustryTags.query.all()
-            all_sentences = SentenceModel.query.filter_by(f_id=id,dimension=report.dimension).all()
+            print(1111)
+            all_sentences = SentenceModel.query.filter(SentenceModel.f_id==id).all()
+            print(11111)
             sentences = []
             for i in all_sentences:
-                if(i.similarity>=report.range_from and i.similarity<=report.range_to):
+                if(i.dimension==report.dimension and i.similarity>=report.range_from and i.similarity<=report.range_to):
                     sentences.append(i)
+            print(11) 
             if(len(sentences)>0):
                 sentences = sorted(sentences, key=lambda x: x.similarity,reverse=report.descending)
             type = report.type
@@ -1757,6 +1763,7 @@ def report_company_test():
             providers = None
             chartdata = None
             both = []
+            print(2)
             # authors = []
             if(type=='vscompany'):
                 page_url = 'reportcompanytest.html'
@@ -1788,9 +1795,18 @@ def report_company_test():
                     c1 = CompanyDocumentModel.query.filter_by(title=report.first).first()
                     if(c1 and c1.query_score):
                         score1 = eval(c1.query_score)
-                temp_sen = SentenceModel.query.filter(SentenceModel.f_id==report.id,SentenceModel.similarity>=report.range_from,SentenceModel.similarity<=report.range_to).all()
+                #temp_sen = SentenceModel.query.filter(SentenceModel.f_id==report.id,SentenceModel.similarity>=report.range_from,SentenceModel.similarity<=report.range_to).all()
+                #temp_sen = SentenceModel.query.filter(SentenceModel.f_id==report.id).all()
+                temp_sen = []
                 p = {}
                 # a = {}
+                print(3)
+
+                for i in all_sentences:
+                    if i.similarity>=report.range_from and i.similarity<=report.range_to:
+                         temp_sen.append(i)
+
+
                 for i in temp_sen:
                     if(p.get(i.provider) is not None):
                         p[i.provider] += 1
@@ -1805,6 +1821,7 @@ def report_company_test():
                     providers.append([key,(value/length_sen)*100])
                 providers = sorted(providers, key=lambda x: x[1],reverse=True)
                 providers = providers[:5]
+                print(4)
                 # for key,value in a.items():
                 #     authors.append([key,value/length_sen])
                 # authors = sorted(authors, key=lambda x: x[1],reverse=True)
@@ -2077,9 +2094,9 @@ def temp_azure(tmp):
 if __name__ == '__main__':
     from waitress import serve
     tl.start()
-    #serve(app, host='0.0.0.0', port=5000)
-    app.run(
-        host = '0.0.0.0',
-        port = 5000,debug=False
+    serve(app, host='0.0.0.0', port=5000)
+    #app.run(
+        #host = '0.0.0.0',
+        #port = 5000,debug=False
         ##ssl_context = ('cert.pem', 'key.pem')
-        )
+        #)

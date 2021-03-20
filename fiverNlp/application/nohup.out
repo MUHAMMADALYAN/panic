@@ -1,0 +1,177 @@
+2021-03-20 20:02:09.968049: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory
+2021-03-20 20:02:09.968110: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2021-03-20 20:02:23.599101: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-03-20 20:02:23.599146: W tensorflow/stream_executor/cuda/cuda_driver.cc:312] failed call to cuInit: UNKNOWN ERROR (303)
+2021-03-20 20:02:23.599170: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (vmAlyan): /proc/driver/nvidia/version does not exist
+2021-03-20 20:02:23.599416: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-03-20 20:02:23.606198: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2294685000 Hz
+2021-03-20 20:02:23.606366: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x7659a90 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-03-20 20:02:23.606388: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+[2021-03-20 20:02:29,237] [timeloop] [INFO] Starting Timeloop..
+[2021-03-20 20:02:29,237] [timeloop] [INFO] Starting Timeloop..
+/home/alyan/.local/lib/python3.8/site-packages/torch/cuda/__init__.py:52: UserWarning: CUDA initialization: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx (Triggered internally at  /pytorch/c10/cuda/CUDAFunctions.cpp:100.)
+  return torch._C._cuda_getDeviceCount() > 0
+INFO:timeloop:Starting Timeloop..
+[2021-03-20 20:02:29,240] [timeloop] [INFO] Registered job <function day at 0x7f2a52182f70>
+[2021-03-20 20:02:29,240] [timeloop] [INFO] Registered job <function day at 0x7f2a52182f70>
+INFO:timeloop:Registered job <function day at 0x7f2a52182f70>
+[2021-03-20 20:02:29,240] [timeloop] [INFO] Registered job <function week at 0x7f2a52039160>
+[2021-03-20 20:02:29,240] [timeloop] [INFO] Registered job <function week at 0x7f2a52039160>
+INFO:timeloop:Registered job <function week at 0x7f2a52039160>
+[2021-03-20 20:02:29,240] [timeloop] [INFO] Registered job <function month at 0x7f2a520391f0>
+[2021-03-20 20:02:29,240] [timeloop] [INFO] Registered job <function month at 0x7f2a520391f0>
+INFO:timeloop:Registered job <function month at 0x7f2a520391f0>
+[2021-03-20 20:02:29,240] [timeloop] [INFO] Timeloop now started. Jobs will run based on the interval set
+[2021-03-20 20:02:29,240] [timeloop] [INFO] Timeloop now started. Jobs will run based on the interval set
+INFO:timeloop:Timeloop now started. Jobs will run based on the interval set
+Killed
+2021-03-20 20:06:08.985268: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory
+2021-03-20 20:06:08.985315: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2021-03-20 20:06:25.377929: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-03-20 20:06:25.377968: W tensorflow/stream_executor/cuda/cuda_driver.cc:312] failed call to cuInit: UNKNOWN ERROR (303)
+2021-03-20 20:06:25.378000: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (vmAlyan): /proc/driver/nvidia/version does not exist
+2021-03-20 20:06:25.378366: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-03-20 20:06:25.433392: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2294685000 Hz
+2021-03-20 20:06:25.434333: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x820d040 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-03-20 20:06:25.434360: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+[2021-03-20 20:06:31,785] [timeloop] [INFO] Starting Timeloop..
+[2021-03-20 20:06:31,785] [timeloop] [INFO] Starting Timeloop..
+/home/alyan/.local/lib/python3.8/site-packages/torch/cuda/__init__.py:52: UserWarning: CUDA initialization: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx (Triggered internally at  /pytorch/c10/cuda/CUDAFunctions.cpp:100.)
+  return torch._C._cuda_getDeviceCount() > 0
+INFO:timeloop:Starting Timeloop..
+[2021-03-20 20:06:31,786] [timeloop] [INFO] Registered job <function day at 0x7f1c597c0f70>
+[2021-03-20 20:06:31,786] [timeloop] [INFO] Registered job <function day at 0x7f1c597c0f70>
+INFO:timeloop:Registered job <function day at 0x7f1c597c0f70>
+[2021-03-20 20:06:31,786] [timeloop] [INFO] Registered job <function week at 0x7f1c59678160>
+[2021-03-20 20:06:31,786] [timeloop] [INFO] Registered job <function week at 0x7f1c59678160>
+INFO:timeloop:Registered job <function week at 0x7f1c59678160>
+[2021-03-20 20:06:31,786] [timeloop] [INFO] Registered job <function month at 0x7f1c596781f0>
+[2021-03-20 20:06:31,786] [timeloop] [INFO] Registered job <function month at 0x7f1c596781f0>
+INFO:timeloop:Registered job <function month at 0x7f1c596781f0>
+[2021-03-20 20:06:31,786] [timeloop] [INFO] Timeloop now started. Jobs will run based on the interval set
+[2021-03-20 20:06:31,786] [timeloop] [INFO] Timeloop now started. Jobs will run based on the interval set
+INFO:timeloop:Timeloop now started. Jobs will run based on the interval set
+Killed
+2021-03-20 20:10:44.796906: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory
+2021-03-20 20:10:44.796953: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2021-03-20 20:11:01.071740: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-03-20 20:11:01.071779: W tensorflow/stream_executor/cuda/cuda_driver.cc:312] failed call to cuInit: UNKNOWN ERROR (303)
+2021-03-20 20:11:01.071811: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (vmAlyan): /proc/driver/nvidia/version does not exist
+2021-03-20 20:11:01.072180: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-03-20 20:11:01.094584: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2294685000 Hz
+2021-03-20 20:11:01.094780: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x7b27740 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-03-20 20:11:01.094809: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+[2021-03-20 20:11:07,405] [timeloop] [INFO] Starting Timeloop..
+[2021-03-20 20:11:07,405] [timeloop] [INFO] Starting Timeloop..
+/home/alyan/.local/lib/python3.8/site-packages/torch/cuda/__init__.py:52: UserWarning: CUDA initialization: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx (Triggered internally at  /pytorch/c10/cuda/CUDAFunctions.cpp:100.)
+  return torch._C._cuda_getDeviceCount() > 0
+INFO:timeloop:Starting Timeloop..
+[2021-03-20 20:11:07,406] [timeloop] [INFO] Registered job <function day at 0x7fb5e12fff70>
+[2021-03-20 20:11:07,406] [timeloop] [INFO] Registered job <function day at 0x7fb5e12fff70>
+INFO:timeloop:Registered job <function day at 0x7fb5e12fff70>
+[2021-03-20 20:11:07,406] [timeloop] [INFO] Registered job <function week at 0x7fb5e11b9160>
+[2021-03-20 20:11:07,406] [timeloop] [INFO] Registered job <function week at 0x7fb5e11b9160>
+INFO:timeloop:Registered job <function week at 0x7fb5e11b9160>
+[2021-03-20 20:11:07,407] [timeloop] [INFO] Registered job <function month at 0x7fb5e11b91f0>
+[2021-03-20 20:11:07,407] [timeloop] [INFO] Registered job <function month at 0x7fb5e11b91f0>
+INFO:timeloop:Registered job <function month at 0x7fb5e11b91f0>
+[2021-03-20 20:11:07,407] [timeloop] [INFO] Timeloop now started. Jobs will run based on the interval set
+[2021-03-20 20:11:07,407] [timeloop] [INFO] Timeloop now started. Jobs will run based on the interval set
+INFO:timeloop:Timeloop now started. Jobs will run based on the interval set
+Terminated
+2021-03-20 20:13:09.386565: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory
+2021-03-20 20:13:09.386611: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2021-03-20 20:13:12.830442: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-03-20 20:13:12.830481: W tensorflow/stream_executor/cuda/cuda_driver.cc:312] failed call to cuInit: UNKNOWN ERROR (303)
+2021-03-20 20:13:12.830501: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (vmAlyan): /proc/driver/nvidia/version does not exist
+2021-03-20 20:13:12.830781: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-03-20 20:13:12.837430: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2294685000 Hz
+2021-03-20 20:13:12.838241: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x8796610 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-03-20 20:13:12.838264: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+Terminated
+2021-03-20 20:13:18.010722: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory
+2021-03-20 20:13:18.010769: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2021-03-20 20:13:21.618489: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-03-20 20:13:21.618530: W tensorflow/stream_executor/cuda/cuda_driver.cc:312] failed call to cuInit: UNKNOWN ERROR (303)
+2021-03-20 20:13:21.618563: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (vmAlyan): /proc/driver/nvidia/version does not exist
+2021-03-20 20:13:21.618815: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-03-20 20:13:21.625554: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2294685000 Hz
+2021-03-20 20:13:21.625748: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x86aa770 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-03-20 20:13:21.625771: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+[2021-03-20 20:13:27,268] [timeloop] [INFO] Starting Timeloop..
+[2021-03-20 20:13:27,268] [timeloop] [INFO] Starting Timeloop..
+/home/alyan/.local/lib/python3.8/site-packages/torch/cuda/__init__.py:52: UserWarning: CUDA initialization: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx (Triggered internally at  /pytorch/c10/cuda/CUDAFunctions.cpp:100.)
+  return torch._C._cuda_getDeviceCount() > 0
+INFO:timeloop:Starting Timeloop..
+[2021-03-20 20:13:27,268] [timeloop] [INFO] Registered job <function day at 0x7f7c7f482f70>
+[2021-03-20 20:13:27,268] [timeloop] [INFO] Registered job <function day at 0x7f7c7f482f70>
+INFO:timeloop:Registered job <function day at 0x7f7c7f482f70>
+[2021-03-20 20:13:27,268] [timeloop] [INFO] Registered job <function week at 0x7f7c7f33b160>
+[2021-03-20 20:13:27,268] [timeloop] [INFO] Registered job <function week at 0x7f7c7f33b160>
+INFO:timeloop:Registered job <function week at 0x7f7c7f33b160>
+[2021-03-20 20:13:27,269] [timeloop] [INFO] Registered job <function month at 0x7f7c7f33b1f0>
+[2021-03-20 20:13:27,269] [timeloop] [INFO] Registered job <function month at 0x7f7c7f33b1f0>
+INFO:timeloop:Registered job <function month at 0x7f7c7f33b1f0>
+[2021-03-20 20:13:27,269] [timeloop] [INFO] Timeloop now started. Jobs will run based on the interval set
+[2021-03-20 20:13:27,269] [timeloop] [INFO] Timeloop now started. Jobs will run based on the interval set
+INFO:timeloop:Timeloop now started. Jobs will run based on the interval set
+2021-03-20 21:08:30.700812: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory
+2021-03-20 21:08:30.701863: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2021-03-20 21:08:34.043810: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-03-20 21:08:34.043856: W tensorflow/stream_executor/cuda/cuda_driver.cc:312] failed call to cuInit: UNKNOWN ERROR (303)
+2021-03-20 21:08:34.043880: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (vmAlyan): /proc/driver/nvidia/version does not exist
+2021-03-20 21:08:34.044144: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-03-20 21:08:34.050703: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2294685000 Hz
+2021-03-20 21:08:34.050871: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x7c3e1e0 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-03-20 21:08:34.050905: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+[2021-03-20 21:08:39,582] [timeloop] [INFO] Starting Timeloop..
+[2021-03-20 21:08:39,582] [timeloop] [INFO] Starting Timeloop..
+/home/alyan/.local/lib/python3.8/site-packages/torch/cuda/__init__.py:52: UserWarning: CUDA initialization: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx (Triggered internally at  /pytorch/c10/cuda/CUDAFunctions.cpp:100.)
+  return torch._C._cuda_getDeviceCount() > 0
+INFO:timeloop:Starting Timeloop..
+[2021-03-20 21:08:39,583] [timeloop] [INFO] Registered job <function day at 0x7f37582c6a60>
+[2021-03-20 21:08:39,583] [timeloop] [INFO] Registered job <function day at 0x7f37582c6a60>
+INFO:timeloop:Registered job <function day at 0x7f37582c6a60>
+[2021-03-20 21:08:39,584] [timeloop] [INFO] Registered job <function week at 0x7f3758196160>
+[2021-03-20 21:08:39,584] [timeloop] [INFO] Registered job <function week at 0x7f3758196160>
+INFO:timeloop:Registered job <function week at 0x7f3758196160>
+[2021-03-20 21:08:39,584] [timeloop] [INFO] Registered job <function month at 0x7f3758196310>
+[2021-03-20 21:08:39,584] [timeloop] [INFO] Registered job <function month at 0x7f3758196310>
+INFO:timeloop:Registered job <function month at 0x7f3758196310>
+[2021-03-20 21:08:39,584] [timeloop] [INFO] Timeloop now started. Jobs will run based on the interval set
+[2021-03-20 21:08:39,584] [timeloop] [INFO] Timeloop now started. Jobs will run based on the interval set
+INFO:timeloop:Timeloop now started. Jobs will run based on the interval set
+Killed
+2021-03-20 21:45:55.801670: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory
+2021-03-20 21:45:55.801706: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2021-03-20 21:46:12.075920: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-03-20 21:46:12.075964: W tensorflow/stream_executor/cuda/cuda_driver.cc:312] failed call to cuInit: UNKNOWN ERROR (303)
+2021-03-20 21:46:12.075991: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (vmAlyan): /proc/driver/nvidia/version does not exist
+2021-03-20 21:46:12.076335: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-03-20 21:46:12.106992: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2294685000 Hz
+2021-03-20 21:46:12.107295: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x7eb6950 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-03-20 21:46:12.107325: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+[2021-03-20 21:46:18,839] [timeloop] [INFO] Starting Timeloop..
+[2021-03-20 21:46:18,839] [timeloop] [INFO] Starting Timeloop..
+/home/alyan/.local/lib/python3.8/site-packages/torch/cuda/__init__.py:52: UserWarning: CUDA initialization: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx (Triggered internally at  /pytorch/c10/cuda/CUDAFunctions.cpp:100.)
+  return torch._C._cuda_getDeviceCount() > 0
+INFO:timeloop:Starting Timeloop..
+[2021-03-20 21:46:18,840] [timeloop] [INFO] Registered job <function day at 0x7fd5e0fbaa60>
+[2021-03-20 21:46:18,840] [timeloop] [INFO] Registered job <function day at 0x7fd5e0fbaa60>
+INFO:timeloop:Registered job <function day at 0x7fd5e0fbaa60>
+[2021-03-20 21:46:18,840] [timeloop] [INFO] Registered job <function week at 0x7fd5e0e11160>
+[2021-03-20 21:46:18,840] [timeloop] [INFO] Registered job <function week at 0x7fd5e0e11160>
+INFO:timeloop:Registered job <function week at 0x7fd5e0e11160>
+[2021-03-20 21:46:18,841] [timeloop] [INFO] Registered job <function month at 0x7fd5e0e11310>
+[2021-03-20 21:46:18,841] [timeloop] [INFO] Registered job <function month at 0x7fd5e0e11310>
+INFO:timeloop:Registered job <function month at 0x7fd5e0e11310>
+[2021-03-20 21:46:18,841] [timeloop] [INFO] Timeloop now started. Jobs will run based on the interval set
+[2021-03-20 21:46:18,841] [timeloop] [INFO] Timeloop now started. Jobs will run based on the interval set
+INFO:timeloop:Timeloop now started. Jobs will run based on the interval set
