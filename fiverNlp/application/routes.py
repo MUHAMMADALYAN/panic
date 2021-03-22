@@ -5,6 +5,13 @@ import json
 import inspect, nltk
 import numpy as np
 
+#new imports for Bert
+import pandas as pd
+from collections import Counter
+from nltk.corpus import stopwords
+import csv, pickle
+from tqdm import tqdm
+
 from forms import (
     FileInputForm,
     PredictionDataForm,
@@ -219,24 +226,43 @@ def train_model(retrain):
         features, labels = shuffle(features, labels)
 
         #Imp numbers to create Embeddings and for padding
-        maxlen, count = count_words(features)
-        num_words     = len(count)
-        maxlen        = maxlen 
+        #maxlen, count = count_words(features)
+        #num_words     = len(count)
+        #maxlen        = maxlen 
 
         #One hot encoding Labels
         labels = onehot_encode_labels(labels)
 
         #Tokenizing the data
-        tokenizer.fit_on_texts(features)
+        #tokenizer.fit_on_texts(features)
+	
+	tok_features=tokenize(features,tokenizer)
+        #print("tok_features ------> ",tok_features)
 
-        # saving the tokenizer
-        save_tokenizer(tokenizer)
+        input_ids_in=(tok_features[0])
+        input_masks_in=(tok_features[1])
+        print("input_ids_in.shape ---> ",input_ids_in.shape)
+        print("input_masks_in.shape --> ",input_masks_in.shape)
 
-        feature_sequences = tokenizer.texts_to_sequences(features)
-        feature_padded = pad_sequences(feature_sequences, maxlen=maxlen, padding='post', truncating='post')
+        #Getting Embeddings
+        cls_token=embeddings(input_ids_in,input_masks_in)
+        print("cls_token.shape ---> ",cls_token.shape)
+        total_samples = len(cls_token)
+
+        embedding_features = np.asarray(cls_token)
+
 
         #Training the Model
-        model.fit(feature_padded, labels, epochs=20)
+        model.fit(embedding_features, labels, epochs=50)
+
+        # saving the tokenizer
+        #save_tokenizer(tokenizer)
+
+        #feature_sequences = tokenizer.texts_to_sequences(features)
+        #feature_padded = pad_sequences(feature_sequences, maxlen=maxlen, padding='post', truncating='post')
+
+        #Training the Model
+        #model.fit(feature_padded, labels, epochs=20)
 
         #overwriting the model
         model.save('static/Models/model_under_use.h5')
@@ -296,10 +322,24 @@ def results():
 
     sentences   = nltk.sent_tokenize(TEST_STRING)
 
-    text_seq        = tokenizer.texts_to_sequences(sentences)
-    text_seq_padded = pad_sequences(text_seq, maxlen=maxlen, padding='post', truncating='post')
+    #text_seq        = tokenizer.texts_to_sequences(sentences)
+    #text_seq_padded = pad_sequences(text_seq, maxlen=maxlen, padding='post', truncating='post')
+		
+    tok_test_features=tokenize(sentences,tokenizer)
 
-    predictions = model.predict(text_seq_padded)
+    test_input_ids_in=(tok_test_features[0])
+    test_input_masks_in=(tok_test_features[1])
+        
+
+    #Getting Embeddings
+    test_cls_token=embeddings(test_input_ids_in,test_input_masks_in)
+    embedding_features = np.asarray(test_cls_token)
+
+
+    predictions = model.predict(embedding_features)
+    #print("predictions===",predictions)    
+	
+    #predictions = model.predict(text_seq_padded)
         
     class_num = tfmath.argmax(predictions, axis= 1)
     class_num = tfbackend.eval(class_num)
@@ -362,9 +402,23 @@ def classified():
     text=text['mytext']
     global model, tokenizer , maxlen
     sentences   = nltk.sent_tokenize(text) 
-    text_seq        = tokenizer.texts_to_sequences(sentences)
-    text_seq_padded = pad_sequences(text_seq, maxlen=maxlen,padding='post', truncating='post')
-    predictions = model.predict(text_seq_padded)
+    tok_test_features=tokenize(sentences,tokenizer)
+
+    test_input_ids_in=(tok_test_features[0])
+    test_input_masks_in=(tok_test_features[1])
+        
+
+    #Getting Embeddings
+    test_cls_token=embeddings(test_input_ids_in,test_input_masks_in)
+    embedding_features = np.asarray(test_cls_token)
+
+
+    predictions = model.predict(embedding_features)
+    #print("predictions===",predictions)    
+	
+    #text_seq        = tokenizer.texts_to_sequences(sentences)
+    #text_seq_padded = pad_sequences(text_seq, maxlen=maxlen,padding='post', truncating='post')
+    #predictions = model.predict(text_seq_padded)
     class_num = tfmath.argmax(predictions, axis= 1) #Returns the index with the largest value across axes of a tensor.
     class_num = tfbackend.eval(class_num) 
     labels    = decode_onehot_labels(class_num)
