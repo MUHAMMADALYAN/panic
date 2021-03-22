@@ -235,7 +235,6 @@ def train_model(retrain):
 
         #Tokenizing the data
         #tokenizer.fit_on_texts(features)
-	
 	tok_features=tokenize(features,tokenizer)
         #print("tok_features ------> ",tok_features)
 
