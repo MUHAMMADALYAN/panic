@@ -231,7 +231,7 @@ def train_model(retrain):
         #maxlen        = maxlen 
 	#One hot encoding Labels
         labels = onehot_encode_labels(labels)
-	  tokenizer.fit_on_texts(features)
+	tokenizer.fit_on_texts(features)
 
         #Tokenizing the data
          
@@ -241,8 +241,6 @@ def train_model(retrain):
 
         input_ids_in=(tok_features[0])
         input_masks_in=(tok_features[1])
-
-        
         print("input_ids_in.shape ---> ",input_ids_in.shape)
         print("input_masks_in.shape --> ",input_masks_in.shape)
 
