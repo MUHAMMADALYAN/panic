@@ -229,18 +229,19 @@ def train_model(retrain):
         #maxlen, count = count_words(features)
         #num_words     = len(count)
         #maxlen        = maxlen 
-
-        #One hot encoding Labels
+	#One hot encoding Labels
         labels = onehot_encode_labels(labels)
+	
 
         #Tokenizing the data
         #tokenizer.fit_on_texts(features)
-	
-	tok_features=tokenize(features,tokenizer)
+	tok_features = tokenize(features,tokenizer)
         #print("tok_features ------> ",tok_features)
 
         input_ids_in=(tok_features[0])
         input_masks_in=(tok_features[1])
+
+        
         print("input_ids_in.shape ---> ",input_ids_in.shape)
         print("input_masks_in.shape --> ",input_masks_in.shape)
 
