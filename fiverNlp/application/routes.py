@@ -232,11 +232,11 @@ def train_model(retrain):
 
         #One hot encoding Labels
         labels = onehot_encode_labels(labels)
+	
 
         #Tokenizing the data
         #tokenizer.fit_on_texts(features)
-	
-	tok_features=tokenize(features,tokenizer)
+	tok_features = tokenize(features,tokenizer)
         #print("tok_features ------> ",tok_features)
 
         input_ids_in=(tok_features[0])
