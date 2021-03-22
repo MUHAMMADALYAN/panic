@@ -221,28 +221,22 @@ def train_model(retrain):
 
         #Cleaning stop words and converting to lists
         features = filter_func(features)
-
+        
         #shuffling the data    
         features, labels = shuffle(features, labels)
 
-        #Imp numbers to create Embeddings and for padding
-        #maxlen, count = count_words(features)
-        #num_words     = len(count)
-        #maxlen        = maxlen 
-	#One hot encoding Labels
+        
+        #One hot encoding Labels
         labels = onehot_encode_labels(labels)
-	  tokenizer.fit_on_texts(features)
 
         #Tokenizing the data
-         
-	#tok_features = tokenize(features,tokenizer)
-        #print("tok_features ------> ",tok_features)
-	
+        #tokenizer.fit_on_texts(features)
+
+        tok_features=tokenize(features,tokenizer)
+        print("tok_features ------> ",tok_features)
 
         input_ids_in=(tok_features[0])
         input_masks_in=(tok_features[1])
-
-        
         print("input_ids_in.shape ---> ",input_ids_in.shape)
         print("input_masks_in.shape --> ",input_masks_in.shape)
 
@@ -256,16 +250,6 @@ def train_model(retrain):
 
         #Training the Model
         model.fit(embedding_features, labels, epochs=50)
-
-        # saving the tokenizer
-        #save_tokenizer(tokenizer)
-
-        #feature_sequences = tokenizer.texts_to_sequences(features)
-        #feature_padded = pad_sequences(feature_sequences, maxlen=maxlen, padding='post', truncating='post')
-
-        #Training the Model
-        #model.fit(feature_padded, labels, epochs=20)
-
         #overwriting the model
         model.save('static/Models/model_under_use.h5')
 
