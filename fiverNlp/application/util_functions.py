@@ -6,6 +6,12 @@ from flask import current_app as app
 from sentence_transformers import SentenceTransformer, util
 import time
 
+# new bert imports
+from transformers import TFDistilBertForSequenceClassification, DistilBertConfig,TFDistilBertModel
+import tensorflow as tf
+from tqdm import tqdm
+
+
 class_arr = np.array([
     "purpose", 
     "craftsmanship", 
@@ -214,3 +220,29 @@ def getSimlarity(sentence1,sentence2):
       dd[sentence2[j]] = "{:.2f}".format(cosine_scores[i][j])
     d[sentence1[i]] = dd
   return d  
+
+
+#new bert utils ftns
+def tokenize(sentences, tokenizer):
+    input_ids, input_masks= [],[]
+    for sentence in tqdm(sentences):
+        inputs = tokenizer.encode_plus(sentence, add_special_tokens=True, max_length=128, pad_to_max_length=True, 
+                                             return_attention_mask=True, return_token_type_ids=True)
+        input_ids.append(inputs['input_ids'])
+        input_masks.append(inputs['attention_mask'])
+        #input_segments.append(inputs['token_type_ids'])            
+    return np.asarray(input_ids, dtype='int32'), np.asarray(input_masks, dtype='int32')    
+
+def embeddings(i,a):
+  distil_bert = 'distilbert-base-uncased'
+
+  config = DistilBertConfig(dropout=0.2, attention_dropout=0.2)
+  config.output_hidden_states = False
+  transformer_model = TFDistilBertModel.from_pretrained(distil_bert, config = config)
+
+  #input_ids_in = tf.keras.layers.Input(shape=(128,), name='input_token', dtype='int32')
+  #input_masks_in = tf.keras.layers.Input(shape=(128,), name='masked_token', dtype='int32') 
+
+  embedding_layer = transformer_model(i, attention_mask=a)[0]
+  cls_token = embedding_layer[:,0,:]
+  return cls_token     
